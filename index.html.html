@@ -1,0 +1,2574 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solutiva Z — Solusi belajar jadi lebih menyenangkan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      background-color: #fff8fb;
+      background-image: radial-gradient(#fbcfe8 1.25px, transparent 1.25px), radial-gradient(#bfdbfe 1.25px, #fff8fb 1.25px);
+      background-size: 28px 28px;
+      background-position: 0 0, 14px 14px;
+    }
+    h1, h2, h3, .font-display {
+      font-family: 'Fredoka', 'Plus Jakarta Sans', sans-serif;
+    }
+    .kid-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .kid-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 28px -10px rgba(236, 72, 153, 0.18), 0 8px 16px -8px rgba(37, 99, 235, 0.12);
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .float-slow {
+      animation: floatSlow 3.6s ease-in-out infinite;
+    }
+    .fade-in {
+      animation: fadeIn 0.25s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+      }
+      .print-break-avoid {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+  <!-- =====================================================================
+       TOP ROLE & ACCOUNT BAR (PUBLIC + 5 ROLES + LOGIN MODAL TRIGGER)
+       ===================================================================== -->
+  <header class="no-print sticky top-0 z-40 bg-gradient-to-r from-blue-950 via-blue-900 to-pink-900 text-white border-b border-white/15 shadow-md">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2.5">
+      <!-- Brand Identity -->
+      <div class="flex items-center justify-between gap-2">
+        <button type="button" onclick="switchAppRole('public')" class="flex items-center gap-2.5 text-left group">
+          <div class="w-10 h-10 rounded-xl bg-white p-1 shadow-sm flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+            <!-- Emblem Logo Solutiva Z (Sosok Belajar, Bintang Emas, Buku Biru & Emas) -->
+            <svg viewBox="0 0 64 64" class="w-full h-full" aria-label="Logo Solutiva Z">
+              <circle cx="32" cy="14" r="5.5" fill="#1E3A8A" />
+              <path d="M18 31 L27 21 L32 27 L37 21 L46 31 L42 35 L32 26 L22 35 Z" fill="#1E3A8A" />
+              <path d="M8 36 L29 31 L32 49 L11 45 Z" fill="#2563EB" />
+              <path d="M56 36 L35 31 L32 49 L53 45 Z" fill="#F59E0B" />
+              <path d="M7 45 L32 50 L57 45" fill="none" stroke="#1E3A8A" stroke-width="3" stroke-linecap="round" />
+              <polygon points="49,7 51.2,12 56.5,12.5 52.4,16 53.7,21.2 49,18.3 44.3,21.2 45.6,16 41.5,12.5 46.8,12" fill="#FACC15" />
+            </svg>
+          </div>
+          <div class="leading-tight">
+            <div class="flex items-center gap-1.5">
+              <span class="font-display font-extrabold text-sm sm:text-base tracking-tight text-white">Solutiva</span>
+              <span class="font-display font-extrabold text-sm sm:text-base text-amber-400">Z</span>
+              <span class="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-bold bg-pink-500/30 text-pink-100 border border-pink-300/30">
+                Bimbingan Belajar
+              </span>
+            </div>
+            <p class="text-[11px] text-pink-100/90 font-medium">Solusi belajar jadi lebih menyenangkan</p>
+          </div>
+        </button>
+
+        <!-- Mobile Quick Reset -->
+        <button type="button" onclick="openConfirmModal('reset')" class="lg:hidden px-2.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-[11px] font-semibold flex items-center gap-1">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+          <span>Reset</span>
+        </button>
+      </div>
+
+      <!-- 5 User Roles + Public Portal + Login Modal Button -->
+      <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5 lg:pb-0">
+        <button type="button" onclick="switchAppRole('public')" data-role-tab="public" class="role-switch-btn px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all flex items-center gap-1.5">
+          <i data-lucide="globe" class="w-3.5 h-3.5"></i>
+          <span>Halaman Publik</span>
+        </button>
+        <button type="button" onclick="switchAppRole('owner')" data-role-tab="owner" class="role-switch-btn px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all flex items-center gap-1.5">
+          <i data-lucide="crown" class="w-3.5 h-3.5"></i>
+          <span>1. Owner</span>
+        </button>
+        <button type="button" onclick="switchAppRole('admin')" data-role-tab="admin" class="role-switch-btn px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all flex items-center gap-1.5">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          <span>2. Admin</span>
+        </button>
+        <button type="button" onclick="switchAppRole('tutor')" data-role-tab="tutor" class="role-switch-btn px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all flex items-center gap-1.5">
+          <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i>
+          <span>3. Guru / Tutor</span>
+        </button>
+        <button type="button" onclick="switchAppRole('student')" data-role-tab="student" class="role-switch-btn px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all flex items-center gap-1.5">
+          <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
+          <span>4. Siswa</span>
+        </button>
+        <button type="button" onclick="switchAppRole('parent')" data-role-tab="parent" class="role-switch-btn px-3 py-1.5 rounded-xl text-xs font-bold shrink-0 transition-all flex items-center gap-1.5">
+          <i data-lucide="heart-handshake" class="w-3.5 h-3.5"></i>
+          <span>5. Orang Tua</span>
+        </button>
+        <button type="button" onclick="openRoleLoginModal(uiState.activeRole === 'public' ? 'parent' : uiState.activeRole)" class="px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-extrabold shrink-0 transition-all flex items-center gap-1.5 shadow-xs">
+          <i data-lucide="log-in" class="w-3.5 h-3.5"></i>
+          <span>Login Akun</span>
+        </button>
+        <button type="button" onclick="openConfirmModal('reset')" class="hidden lg:inline-flex ml-1 px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-[11px] font-bold text-blue-100 items-center gap-1 shrink-0 transition-colors">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+          <span>Reset Demo</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       MAIN CONTENT CONTAINER
+       ===================================================================== -->
+  <main class="flex-1 w-full">
+
+    <!-- ===================================================================
+         VIEW A: HALAMAN PUBLIK SOLUTIVA Z
+         =================================================================== -->
+    <section id="view-public" class="fade-in">
+      <!-- Hero Banner (Pink + Biru Ramah Anak) -->
+      <div class="relative overflow-hidden bg-gradient-to-br from-blue-600 via-pink-500 to-amber-400 text-white rounded-b-[2.25rem] sm:rounded-b-[3rem] shadow-lg">
+        <div class="hidden sm:flex items-center justify-center w-12 h-12 rounded-2xl bg-amber-300/90 text-slate-900 shadow-md float-slow absolute top-7 right-10 pointer-events-none">
+          <i data-lucide="star" class="w-6 h-6 fill-amber-500 text-amber-700"></i>
+        </div>
+        <div class="hidden md:flex items-center justify-center w-11 h-11 rounded-2xl bg-white/25 backdrop-blur-xs text-white float-slow absolute bottom-8 left-8 pointer-events-none" style="animation-delay: 1s;">
+          <i data-lucide="smile" class="w-6 h-6 text-amber-200"></i>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+          <div class="lg:col-span-7 space-y-5">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-pink-600 text-xs font-extrabold shadow-xs">
+              <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
+              <span>Pasar Tapan, Basa Ampek Balai Tapan · Ramah Anak & Ceria</span>
+            </div>
+            <h1 class="font-display font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight drop-shadow-xs">
+              Solutiva Z — <span class="text-amber-200">Solusi belajar jadi lebih menyenangkan</span>
+            </h1>
+            <p class="text-sm sm:text-base text-blue-50/95 max-w-2xl leading-relaxed">
+              Bimbingan belajar terarah untuk <strong>Balistung, TK–PAUD, SD, SMP, SMA</strong>, <strong>Program Khusus TKA</strong>, dan <strong>Les Privat</strong> dengan kapasitas maksimal <strong>8 siswa</strong> per kelas, <strong>Assessment Diagnostik Awal</strong>, serta <strong>Konsultasi PR Setiap Pertemuan</strong>.
+            </p>
+            <div class="flex flex-wrap items-center gap-3 pt-1">
+              <a href="#pendaftaran-publik" class="px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-sm shadow-lg transition-all inline-flex items-center gap-2">
+                <i data-lucide="user-plus" class="w-4 h-4"></i>
+                <span>Daftar Sekarang</span>
+              </a>
+              <a href="#program-biaya" class="px-5 py-3 rounded-2xl bg-white/15 hover:bg-white/25 border border-white/30 text-white font-bold text-sm transition-all inline-flex items-center gap-2">
+                <i data-lucide="layers" class="w-4 h-4"></i>
+                <span>Lihat Program & Biaya</span>
+              </a>
+              <button type="button" onclick="openWhatsAppModal('general')" class="px-4 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-white font-bold text-sm shadow-md transition-all inline-flex items-center gap-2">
+                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                <span>WA 083130142815</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Highlight Card -->
+          <div class="lg:col-span-5">
+            <div class="bg-white/95 text-slate-800 rounded-3xl p-5 sm:p-6 shadow-2xl border border-pink-100 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                <div class="flex items-center gap-2.5">
+                  <span class="w-9 h-9 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i>
+                  </span>
+                  <div>
+                    <h2 class="font-display font-extrabold text-base text-slate-900">Keunggulan Utama Solutiva Z</h2>
+                    <p class="text-xs text-slate-500">Pendampingan personal & terukur</p>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-full bg-blue-100 text-blue-700 text-[11px] font-extrabold">Maks. 8 Siswa</span>
+              </div>
+
+              <ul class="space-y-3 text-xs sm:text-sm">
+                <li class="flex items-start gap-2.5">
+                  <span class="w-6 h-6 rounded-lg bg-pink-100 text-pink-600 flex items-center justify-center shrink-0 mt-0.5">
+                    <i data-lucide="clipboard-check" class="w-3.5 h-3.5"></i>
+                  </span>
+                  <div>
+                    <p class="font-bold text-slate-900">Assessment Diagnostik Awal</p>
+                    <p class="text-slate-600 text-xs">Menguji & memetakan kemampuan awal anak sebelum penempatan materi.</p>
+                  </div>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="w-6 h-6 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0 mt-0.5">
+                    <i data-lucide="book-open-check" class="w-3.5 h-3.5"></i>
+                  </span>
+                  <div>
+                    <p class="font-bold text-slate-900">Konsultasi PR Setiap Pertemuan</p>
+                    <p class="text-slate-600 text-xs">Bantuan pengerjaan & pemahaman tugas sekolah di setiap sesi.</p>
+                  </div>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <span class="w-6 h-6 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
+                    <i data-lucide="users" class="w-3.5 h-3.5"></i>
+                  </span>
+                  <div>
+                    <p class="font-bold text-slate-900">Pilihan Reguler & Privat di Tiap Program</p>
+                    <p class="text-slate-600 text-xs">Disesuaikan dengan kebutuhan belajar & kenyamanan anak.</p>
+                  </div>
+                </li>
+              </ul>
+
+              <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span class="text-slate-500 font-medium">Biaya Registrasi Awal</span>
+                <span class="font-extrabold text-sm text-pink-600">Rp50.000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tentang Kami & Fasilitas -->
+      <div id="tentang-kami" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 border border-pink-100 shadow-xs space-y-4">
+            <span class="inline-block px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-xs font-extrabold">Tentang Kami</span>
+            <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-slate-900">Pendamping Belajar Ramah & Terstruktur</h2>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              <strong>Solutiva Z</strong> hadir di <strong>Pasar Tapan, Basa Ampek Balai Tapan</strong> untuk membantu anak-anak membangun fondasi belajar yang kuat, percaya diri, dan menyenangkan. Setiap siswa dibimbing secara bertahap dimulai dari <strong>Assessment Diagnostik Awal</strong> hingga evaluasi perkembangan rutin bersama orang tua.
+            </p>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+              <div class="p-3.5 rounded-2xl bg-pink-50 border border-pink-100">
+                <p class="text-xs text-pink-700 font-bold">Registrasi</p>
+                <p class="font-display font-extrabold text-lg text-slate-900">Rp50.000</p>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-blue-50 border border-blue-100">
+                <p class="text-xs text-blue-700 font-bold">Kapasitas Kelas</p>
+                <p class="font-display font-extrabold text-lg text-slate-900">Maks. 8 Siswa</p>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-100 col-span-2 sm:col-span-1">
+                <p class="text-xs text-amber-800 font-bold">Pendampingan</p>
+                <p class="font-display font-extrabold text-sm text-slate-900 mt-0.5">Konsultasi PR Tiap Sesi</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fasilitas -->
+          <div id="fasilitas" class="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 border border-blue-100 shadow-xs space-y-4">
+            <span class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-extrabold">Fasilitas Belajar</span>
+            <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-slate-900">Suasana Nyaman & Fokus</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs sm:text-sm">
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1">
+                <div class="flex items-center gap-2 font-bold text-blue-800">
+                  <i data-lucide="stethoscope" class="w-4 h-4 text-pink-600"></i>
+                  <span>Assessment Diagnostik Awal</span>
+                </div>
+                <p class="text-slate-600 text-xs">Pemetaan kemampuan dasar anak sebelum memulai kelas.</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1">
+                <div class="flex items-center gap-2 font-bold text-blue-800">
+                  <i data-lucide="help-circle" class="w-4 h-4 text-blue-600"></i>
+                  <span>Konsultasi PR Setiap Pertemuan</span>
+                </div>
+                <p class="text-slate-600 text-xs">Bimbingan langsung menyelesaikan PR & latihan sekolah.</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1">
+                <div class="flex items-center gap-2 font-bold text-blue-800">
+                  <i data-lucide="users-round" class="w-4 h-4 text-pink-600"></i>
+                  <span>Kelas Maksimal 8 Siswa</span>
+                </div>
+                <p class="text-slate-600 text-xs">Rombongan belajar terjaga agar perhatian tutor merata.</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-1">
+                <div class="flex items-center gap-2 font-bold text-blue-800">
+                  <i data-lucide="sliders" class="w-4 h-4 text-blue-600"></i>
+                  <span>Mode Reguler & Privat</span>
+                </div>
+                <p class="text-slate-600 text-xs">Tersedia opsi reguler maupun privat pada tiap program.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Program Belajar & Harga -->
+        <div id="program-biaya" class="space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-xs font-extrabold mb-1">Program Belajar & Biaya</span>
+              <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-slate-900">Pilihan Program Sesuai Kebutuhan Anak</h2>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-600 font-medium">Biaya Registrasi: <strong class="text-pink-600">Rp50.000</strong> · Tersedia mode <strong>Reguler</strong> & <strong>Privat</strong></p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <!-- 1. Balistung, TK-PAUD & SD -->
+            <div class="kid-card bg-white rounded-[1.75rem] p-6 border-2 border-pink-300 shadow-sm flex flex-col justify-between space-y-5">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-[11px] font-extrabold">🎨 Reguler / Privat</span>
+                  <span class="text-xs font-extrabold text-blue-700">Bulanan</span>
+                </div>
+                <h3 class="font-display font-bold text-xl text-slate-900">Balistung, TK–PAUD & SD</h3>
+                <p class="font-display font-bold text-2xl text-pink-600">Rp150.000 <span class="text-xs font-sans font-semibold text-slate-500">/ bulan</span></p>
+                <ul class="space-y-2 text-xs text-slate-600 pt-1">
+                  <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span><strong>Senin – Jumat</strong>, semua mata pelajaran</span></li>
+                  <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span><strong>Jumat khusus Bahasa Inggris</strong></span></li>
+                  <li class="flex items-start gap-2"><i data-lucide="clock" class="w-4 h-4 text-blue-600 shrink-0 mt-0.5"></i><span>Jam pilihan: <strong>13.00, 14.30, 16.00, 19.00</strong></span></li>
+                  <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span>Assessment Diagnostik Awal & Konsultasi PR tiap pertemuan</span></li>
+                </ul>
+              </div>
+              <button type="button" onclick="selectProgramForRegistration('Balistung, TK–PAUD & SD')" class="w-full py-2.5 px-4 rounded-2xl bg-pink-600 hover:bg-pink-700 text-white font-extrabold text-xs transition-colors shadow-xs">
+                Pilih Program Ini
+              </button>
+            </div>
+
+            <!-- 2. SMP & SMA -->
+            <div class="kid-card bg-white rounded-[1.75rem] p-6 border-2 border-blue-300 shadow-sm flex flex-col justify-between space-y-5">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-[11px] font-extrabold">📘 Reguler / Privat</span>
+                  <span class="text-xs font-extrabold text-pink-600">12x Pertemuan</span>
+                </div>
+                <h3 class="font-display font-bold text-xl text-slate-900">SMP & SMA</h3>
+                <p class="font-display font-bold text-2xl text-blue-700">Rp250.000 <span class="text-xs font-sans font-semibold text-slate-500">/ bulan</span></p>
+                <ul class="space-y-2 text-xs text-slate-600 pt-1">
+                  <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span>Kuota belajar <strong>12x pertemuan / bulan</strong></span></li>
+                  <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span>Pendalaman materi sekolah & persiapan ujian</span></li>
+                  <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span>Assessment Diagnostik Awal & Konsultasi PR tiap pertemuan</span></li>
+                </ul>
+              </div>
+              <button type="button" onclick="selectProgramForRegistration('SMP & SMA')" class="w-full py-2.5 px-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs transition-colors shadow-xs">
+                Pilih Program Ini
+              </button>
+            </div>
+
+            <!-- 3. Program Khusus TKA (Terpisah & Tanpa Harga Khusus) -->
+            <div class="kid-card bg-white rounded-[1.75rem] p-6 border-2 border-amber-300 shadow-sm flex flex-col justify-between space-y-5">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-[11px] font-extrabold">⭐ Reguler / Privat</span>
+                  <span class="text-xs font-extrabold text-slate-600">Program Khusus</span>
+                </div>
+                <h3 class="font-display font-bold text-xl text-slate-900">Program Khusus TKA</h3>
+                <p class="text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1.5 rounded-xl inline-block">Fokus Persiapan & Latihan TKA</p>
+                <ul class="space-y-2 text-xs text-slate-600 pt-1">
+                  <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span>Terpisah dari kelas reguler maupun les privat</span></li>
+                  <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span>Assessment Diagnostik Awal untuk mengukur kesiapan</span></li>
+                  <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span>Konsultasi PR & pembahasan soal setiap pertemuan</span></li>
+                </ul>
+              </div>
+              <button type="button" onclick="selectProgramForRegistration('Program Khusus TKA')" class="w-full py-2.5 px-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs transition-colors shadow-xs">
+                Pilih Program Ini
+              </button>
+            </div>
+
+            <!-- 4. Les Privat (Terpisah & Tanpa Harga Khusus) -->
+            <div class="kid-card bg-white rounded-[1.75rem] p-6 border-2 border-purple-200 shadow-sm flex flex-col justify-between space-y-5">
+              <div class="space-y-3">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-[11px] font-extrabold">🎈 Privat</span>
+                  <span class="text-xs font-extrabold text-slate-600">Pendampingan Intensif</span>
+                </div>
+                <h3 class="font-display font-bold text-xl text-slate-900">Les Privat</h3>
+                <p class="text-xs font-bold text-pink-700 bg-pink-50 px-3 py-1.5 rounded-xl inline-block">Pendampingan Fleksibel Sesuai Kebutuhan</p>
+                <ul class="space-y-2 text-xs text-slate-600 pt-1">
+                  <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span>Fokus satu per satu sesuai target belajar anak</span></li>
+                  <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span>Assessment Diagnostik Awal & evaluasi berkala</span></li>
+                  <li class="flex items-start gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0 mt-0.5"></i><span>Konsultasi PR setiap pertemuan</span></li>
+                </ul>
+              </div>
+              <button type="button" onclick="selectProgramForRegistration('Les Privat')" class="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-pink-600 to-blue-600 hover:opacity-95 text-white font-extrabold text-xs transition-opacity shadow-xs">
+                Pilih Program Ini
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Galeri & Testimoni -->
+        <div id="galeri-testimoni" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Galeri -->
+          <div class="lg:col-span-7 bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xs font-extrabold text-pink-600">Galeri Kegiatan</span>
+                <h3 class="font-display font-extrabold text-xl text-slate-900">Suasana Belajar di Solutiva Z</h3>
+              </div>
+              <span class="text-xs text-slate-500">Maks. 8 Siswa / Kelas</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+              <div onclick="openGalleryLightbox(0)" class="cursor-pointer group rounded-2xl overflow-hidden border border-pink-100 bg-pink-50 p-4 space-y-2 hover:shadow-md transition-all">
+                <div class="h-24 rounded-xl bg-gradient-to-br from-pink-500 to-rose-400 text-white flex flex-col items-center justify-center p-2 text-center">
+                  <i data-lucide="book-open" class="w-7 h-7 mb-1"></i>
+                  <span class="text-[11px] font-extrabold">Balistung & SD</span>
+                </div>
+                <p class="text-xs font-bold text-slate-800 group-hover:text-pink-600">Belajar Membaca & Berhitung</p>
+                <p class="text-[11px] text-slate-500">Senin–Jumat & Jumat English</p>
+              </div>
+              <div onclick="openGalleryLightbox(1)" class="cursor-pointer group rounded-2xl overflow-hidden border border-blue-100 bg-blue-50 p-4 space-y-2 hover:shadow-md transition-all">
+                <div class="h-24 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-500 text-white flex flex-col items-center justify-center p-2 text-center">
+                  <i data-lucide="pen-tool" class="w-7 h-7 mb-1"></i>
+                  <span class="text-[11px] font-extrabold">SMP, SMA & TKA</span>
+                </div>
+                <p class="text-xs font-bold text-slate-800 group-hover:text-blue-700">Bedah Soal & Konsultasi PR</p>
+                <p class="text-[11px] text-slate-500">Pendampingan terarah</p>
+              </div>
+              <div onclick="openGalleryLightbox(2)" class="cursor-pointer group rounded-2xl overflow-hidden border border-amber-100 bg-amber-50 p-4 space-y-2 hover:shadow-md transition-all">
+                <div class="h-24 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 text-white flex flex-col items-center justify-center p-2 text-center">
+                  <i data-lucide="award" class="w-7 h-7 mb-1"></i>
+                  <span class="text-[11px] font-extrabold">Assessment Awal</span>
+                </div>
+                <p class="text-xs font-bold text-slate-800 group-hover:text-amber-700">Pemetaan Kemampuan Anak</p>
+                <p class="text-[11px] text-slate-500">Laporan rutin ke orang tua</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimoni -->
+          <div class="lg:col-span-5 bg-white rounded-3xl p-6 border border-slate-200/80 shadow-xs space-y-4">
+            <div>
+              <span class="text-xs font-extrabold text-blue-600">Testimoni Orang Tua</span>
+              <h3 class="font-display font-extrabold text-xl text-slate-900">Cerita Keluarga di Tapan</h3>
+            </div>
+            <div class="space-y-3 text-xs sm:text-sm">
+              <div class="p-3.5 rounded-2xl bg-pink-50/70 border border-pink-100 space-y-1">
+                <p class="text-slate-700 italic">"Anak saya lebih semangat belajar sejak ikut kelas di Solutiva Z. Tiap pertemuan PR-nya juga dibantu sampai paham."</p>
+                <p class="font-bold text-pink-700 text-xs">Ibu Ratna — Orang Tua Siswa SD (Pasar Tapan)</p>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-100 space-y-1">
+                <p class="text-slate-700 italic">"Assessment awal membuat kami tahu bagian mana yang perlu diperkuat, dan kelasnya tidak terlalu ramai."</p>
+                <p class="font-bold text-blue-700 text-xs">Bapak Hendra — Orang Tua Siswa SMP & SD</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Pendaftaran Online + Kontak -->
+        <div id="pendaftaran-publik" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-pink-200 shadow-xs space-y-5">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-xs font-extrabold mb-1">Pendaftaran Online</span>
+              <h2 class="font-display font-extrabold text-2xl text-slate-900">Formulir Pendaftaran Siswa Baru</h2>
+              <p class="text-xs sm:text-sm text-slate-600">Data pendaftaran akan masuk ke antrean verifikasi Admin untuk penempatan kelas (maks. 8 siswa), aktivasi akun, dan penerbitan tagihan.</p>
+            </div>
+
+            <form id="public-registration-form" onsubmit="handlePublicRegistration(event)" class="space-y-4 text-xs sm:text-sm">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block font-bold text-slate-700 mb-1">Nama Lengkap Siswa *</label>
+                  <input type="text" name="studentName" required placeholder="Contoh: Nafisa Azzahra" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-pink-500 outline-none" />
+                </div>
+                <div>
+                  <label class="block font-bold text-slate-700 mb-1">Jenjang / Kelas *</label>
+                  <input type="text" name="grade" required placeholder="Contoh: Balistung / TK / Kelas 4 SD / Kelas 8 SMP" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-pink-500 outline-none" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block font-bold text-slate-700 mb-1">Program Belajar *</label>
+                  <select id="reg-program-select" name="program" onchange="toggleRegTimeField()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white font-semibold text-slate-800">
+                    <option value="Balistung, TK–PAUD & SD">Balistung, TK–PAUD & SD (Rp150.000/bln)</option>
+                    <option value="SMP & SMA">SMP & SMA (Rp250.000/bln · 12x pertemuan)</option>
+                    <option value="Program Khusus TKA">Program Khusus TKA</option>
+                    <option value="Les Privat">Les Privat</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block font-bold text-slate-700 mb-1">Mode Belajar *</label>
+                  <select name="mode" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white font-semibold text-slate-800">
+                    <option value="Reguler">Reguler</option>
+                    <option value="Privat">Privat</option>
+                  </select>
+                </div>
+              </div>
+
+              <div id="reg-time-slot-wrap">
+                <label class="block font-bold text-slate-700 mb-1">Pilihan Jam Belajar (Balistung, TK–PAUD & SD)</label>
+                <select name="timeSlot" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white font-semibold text-slate-800">
+                  <option value="13.00 WIB">13.00 WIB</option>
+                  <option value="14.30 WIB">14.30 WIB</option>
+                  <option value="16.00 WIB">16.00 WIB</option>
+                  <option value="19.00 WIB">19.00 WIB</option>
+                </select>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block font-bold text-slate-700 mb-1">Nama Orang Tua / Wali *</label>
+                  <input type="text" name="parentName" required placeholder="Contoh: Ibu Rahma" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-500 outline-none" />
+                </div>
+                <div>
+                  <label class="block font-bold text-slate-700 mb-1">No. WhatsApp Orang Tua *</label>
+                  <input type="text" name="parentPhone" required placeholder="Contoh: 081267001122" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-500 outline-none" />
+                </div>
+              </div>
+
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Catatan Tambahan / Target Belajar</label>
+                <textarea name="notes" rows="2" placeholder="Contoh: Perlu assessment awal membaca & konsultasi PR matematika..." class="w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:border-pink-500 outline-none"></textarea>
+              </div>
+
+              <div class="p-3.5 rounded-2xl bg-blue-50 border border-blue-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                <span class="text-blue-900 font-medium">Biaya Registrasi: <strong>Rp50.000</strong> · Termasuk Assessment Diagnostik Awal</span>
+                <span id="reg-fee-preview" class="font-extrabold text-pink-600">SPP: Rp150.000/bln</span>
+              </div>
+
+              <button type="submit" class="w-full py-3 px-5 rounded-2xl bg-gradient-to-r from-pink-600 to-blue-600 hover:opacity-95 text-white font-extrabold text-sm shadow-md transition-all flex items-center justify-center gap-2">
+                <i data-lucide="send" class="w-4 h-4"></i>
+                <span>Kirim Pendaftaran</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Kontak & Sekretariat -->
+          <div id="kontak" class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-blue-200 shadow-xs space-y-5">
+            <div>
+              <span class="inline-block px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-extrabold mb-1">Kontak & Lokasi</span>
+              <h2 class="font-display font-extrabold text-2xl text-slate-900">Sekretariat Solutiva Z</h2>
+              <p class="text-xs text-slate-500 mt-0.5">Solusi belajar jadi lebih menyenangkan</p>
+            </div>
+
+            <div class="space-y-3.5 text-xs sm:text-sm">
+              <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                <i data-lucide="map-pin" class="w-5 h-5 text-pink-600 shrink-0 mt-0.5"></i>
+                <div>
+                  <p class="font-bold text-slate-900">Alamat</p>
+                  <p class="text-slate-600">Pasar Tapan, Basa Ampek Balai Tapan</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                <i data-lucide="phone-call" class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5"></i>
+                <div>
+                  <p class="font-bold text-slate-900">WhatsApp Bisnis</p>
+                  <p class="text-slate-700 font-semibold">083130142815</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70">
+                <i data-lucide="share-2" class="w-5 h-5 text-blue-600 shrink-0 mt-0.5"></i>
+                <div>
+                  <p class="font-bold text-slate-900">Media Sosial (@solutivaz)</p>
+                  <p class="text-slate-600 text-xs mt-0.5">TikTok · Facebook · Instagram · Threads: <strong>@solutivaz</strong></p>
+                </div>
+              </div>
+            </div>
+
+            <button type="button" onclick="openWhatsAppModal('general')" class="w-full py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+              <span>Chat Admin via WhatsApp (083130142815)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         VIEW B: WORKSPACE PORTAL (OWNER, ADMIN, GURU/TUTOR, SISWA, ORANG TUA)
+         =================================================================== -->
+    <section id="view-workspace" class="hidden fade-in max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Sidebar Navigation -->
+        <aside class="no-print lg:col-span-3 bg-white rounded-3xl p-4 border border-slate-200/90 shadow-xs space-y-4">
+          <div class="p-3.5 rounded-2xl bg-gradient-to-br from-pink-50 via-white to-blue-50 border border-pink-100 space-y-1.5">
+            <div class="flex items-center justify-between gap-2">
+              <span id="workspace-role-badge" class="px-2.5 py-0.5 rounded-full bg-pink-600 text-white text-[11px] font-extrabold uppercase">Role</span>
+              <button type="button" onclick="openRoleLoginModal(uiState.activeRole)" class="text-[11px] font-bold text-blue-700 hover:underline flex items-center gap-1">
+                <i data-lucide="refresh-cw" class="w-3 h-3"></i>
+                <span>Ganti Akun</span>
+              </button>
+            </div>
+            <h2 id="workspace-user-title" class="font-display font-extrabold text-base text-slate-900">Pengguna</h2>
+            <p id="workspace-user-subtitle" class="text-xs text-slate-500">Solutiva Z · Pasar Tapan</p>
+          </div>
+
+          <!-- Context Selector for Tutor / Student / Parent -->
+          <div id="workspace-context-switcher" class="hidden space-y-1.5">
+            <label id="workspace-context-label" class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider px-1">Akun Aktif</label>
+            <select id="workspace-context-select" onchange="handleWorkspaceContextChange(this.value)" class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-slate-50 text-xs font-bold text-slate-800"></select>
+          </div>
+
+          <!-- Menu Items -->
+          <nav id="workspace-menu-nav" class="flex lg:flex-col gap-1.5 overflow-x-auto no-scrollbar pb-1 lg:pb-0"></nav>
+        </aside>
+
+        <!-- Dynamic Workspace Content -->
+        <div id="workspace-content" class="lg:col-span-9 space-y-6"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       FOOTER
+       ===================================================================== -->
+  <footer class="no-print bg-slate-900 text-slate-300 border-t border-slate-800 mt-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+      <div class="space-y-1 text-center sm:text-left">
+        <p class="font-display font-extrabold text-sm text-white">Solutiva Z <span class="text-amber-400">·</span> <span class="text-pink-300">Solusi belajar jadi lebih menyenangkan</span></p>
+        <p class="text-slate-400">Pasar Tapan, Basa Ampek Balai Tapan · WA: 083130142815 · TikTok / FB / IG / Threads: @solutivaz</p>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-2">
+        <button type="button" onclick="switchAppRole('public')" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold">Halaman Publik</button>
+        <button type="button" onclick="openWhatsAppModal('general')" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold">WhatsApp Bisnis</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =====================================================================
+       MODAL: LOGIN PER PERAN
+       ===================================================================== -->
+  <div id="role-login-modal" class="no-print hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-pink-100 space-y-5 fade-in">
+      <div class="flex items-start justify-between gap-3 border-b border-slate-100 pb-3.5">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-pink-600 to-blue-700 text-white flex items-center justify-center shrink-0">
+            <i data-lucide="key-round" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-extrabold text-base sm:text-lg text-slate-900">Masuk Akun Solutiva Z</h3>
+            <p class="text-xs text-slate-500">Simulasi login sesuai peran pengguna</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeRoleLoginModal()" class="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form onsubmit="submitRoleLoginForm(event)" class="space-y-4 text-xs sm:text-sm">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Pilih Peran Pengguna *</label>
+          <select id="login-role-select" onchange="syncLoginAccountOptions()" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white font-bold text-slate-900">
+            <option value="owner">1. Owner (Kendali Penuh Bimbel)</option>
+            <option value="admin">2. Admin (Pendaftaran, Kelas, SPP & Administrasi)</option>
+            <option value="tutor">3. Guru / Tutor (Kelas Ditugaskan, Absensi, Nilai & Materi)</option>
+            <option value="student">4. Siswa (Jadwal, Materi, Nilai, Kehadiran & Latihan)</option>
+            <option value="parent" selected>5. Orang Tua (Pantau Anak Terhubung & Tagihan)</option>
+          </select>
+        </div>
+
+        <div id="login-account-picker-wrap">
+          <label id="login-account-label" class="block font-bold text-slate-700 mb-1">Pilih Akun Terdaftar *</label>
+          <select id="login-account-select" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white font-semibold text-slate-800"></select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">No. WhatsApp / Username Akun</label>
+          <input type="text" id="login-identifier-input" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-slate-50 outline-none font-medium" />
+        </div>
+
+        <div class="p-3 rounded-2xl bg-pink-50/80 border border-pink-200 text-[11px] text-slate-600 leading-relaxed">
+          <strong class="text-pink-700">Alur Akun:</strong> Akun <em>Siswa</em> & <em>Orang Tua</em> diaktifkan Admin setelah verifikasi pendaftaran. Akun <em>Guru/Tutor</em> & <em>Admin</em> dikelola oleh Owner/Admin.
+        </div>
+
+        <div class="flex justify-end gap-2 pt-1">
+          <button type="button" onclick="closeRoleLoginModal()" class="px-4 py-2.5 rounded-xl border border-slate-300 font-bold text-xs">Batal</button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-blue-600 text-white font-extrabold text-xs shadow-sm flex items-center gap-1.5">
+            <i data-lucide="log-in" class="w-4 h-4"></i>
+            <span>Masuk ke Portal</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL: WHATSAPP (MANUAL + API GATEWAY PREVIEW)
+       ===================================================================== -->
+  <div id="wa-modal" class="no-print hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4 fade-in">
+      <div class="flex items-start justify-between gap-3 border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+            <i data-lucide="message-circle" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-extrabold text-base text-slate-900">Notifikasi WhatsApp Solutiva Z</h3>
+            <p class="text-xs text-slate-500">Kirim manual via WA atau simulasi API otomatis</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeWhatsAppModal()" class="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs sm:text-sm">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Nomor Tujuan WhatsApp</label>
+          <input type="text" id="wa-phone-input" class="w-full px-3.5 py-2 rounded-xl border border-slate-300 font-semibold text-slate-800" />
+        </div>
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Isi Pesan</label>
+          <textarea id="wa-message-textarea" rows="6" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 text-xs leading-relaxed text-slate-800"></textarea>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
+        <button type="button" onclick="copyWhatsAppText()" class="px-3.5 py-2 rounded-xl border border-slate-300 hover:bg-slate-50 font-bold text-xs flex items-center gap-1.5">
+          <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+          <span>Salin Teks</span>
+        </button>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="simulateWhatsAppApiSend()" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5">
+            <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+            <span>Simulasi Kirim API</span>
+          </button>
+          <a id="wa-external-link" href="#" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5">
+            <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            <span>Buka WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL: UNIVERSAL FORM & DETAIL
+       ===================================================================== -->
+  <div id="universal-modal" class="no-print hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 space-y-4 fade-in max-h-[90vh] overflow-y-auto">
+      <div class="flex items-start justify-between gap-3 border-b border-slate-100 pb-3">
+        <div>
+          <h3 id="universal-modal-title" class="font-display font-extrabold text-base sm:text-lg text-slate-900">Form Data</h3>
+          <p id="universal-modal-subtitle" class="text-xs text-slate-500">Solutiva Z</p>
+        </div>
+        <button type="button" onclick="closeUniversalModal()" class="p-1.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div id="universal-modal-body" class="space-y-3 text-xs sm:text-sm"></div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL: GALLERY LIGHTBOX
+       ===================================================================== -->
+  <div id="gallery-lightbox" class="no-print hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4 fade-in">
+      <div class="flex items-center justify-between">
+        <h3 id="lightbox-title" class="font-display font-extrabold text-lg text-slate-900">Kegiatan</h3>
+        <button type="button" onclick="closeGalleryLightbox()" class="p-1.5 rounded-xl text-slate-400 hover:text-slate-700">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <p id="lightbox-desc" class="text-sm text-slate-600 leading-relaxed"></p>
+      <p id="lightbox-meta" class="text-xs font-bold text-pink-600"></p>
+      <div class="flex justify-end">
+        <button type="button" onclick="closeGalleryLightbox()" class="px-4 py-2 rounded-xl bg-blue-600 text-white font-bold text-xs">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       MODAL: CONFIRMATION
+       ===================================================================== -->
+  <div id="confirm-modal" class="no-print hidden fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 space-y-4 fade-in">
+      <h3 id="confirm-title" class="font-display font-extrabold text-base text-slate-900">Konfirmasi</h3>
+      <p id="confirm-desc" class="text-xs sm:text-sm text-slate-600"></p>
+      <div class="flex justify-end gap-2 pt-2">
+        <button type="button" onclick="closeConfirmModal()" class="px-4 py-2 rounded-xl border border-slate-300 font-bold text-xs">Batal</button>
+        <button type="button" id="confirm-action-btn" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs">Lanjutkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       TOAST NOTIFICATION
+       ===================================================================== -->
+  <div id="toast-container" class="no-print fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-xs w-full pointer-events-none"></div>
+
+  <!-- =====================================================================
+       APPLICATION JAVASCRIPT
+       ===================================================================== -->
+  <script>
+    const STORAGE_KEY = 'solutiva_z_lms_v3';
+    const WA_BUSINESS_NUMBER = '083130142815';
+    const CLASS_CAPACITY_LIMIT = 8;
+
+    const PROGRAM_FEES = {
+      'Balistung, TK–PAUD & SD': 150000,
+      'SMP & SMA': 250000,
+      'Program Khusus TKA': 0,
+      'Les Privat': 0
+    };
+
+    const GALLERY_ITEMS = [
+      {
+        title: 'Balistung & SD — Membaca, Berhitung & Bahasa Inggris',
+        desc: 'Pembelajaran aktif Senin–Jumat semua mata pelajaran serta hari Jumat khusus Bahasa Inggris dengan pilihan jam 13.00, 14.30, 16.00, dan 19.00 WIB.',
+        meta: 'Kapasitas maks. 8 siswa · Konsultasi PR setiap pertemuan'
+      },
+      {
+        title: 'SMP, SMA & Program Khusus TKA',
+        desc: 'Pendampingan pemahaman konsep mata pelajaran sekolah (12x pertemuan/bulan untuk paket SMP & SMA) serta program khusus TKA.',
+        meta: 'Tersedia mode Reguler & Privat · Assessment Diagnostik Awal'
+      },
+      {
+        title: 'Assessment Diagnostik Awal & Evaluasi Rutin',
+        desc: 'Menguji kemampuan dasar anak di awal masuk untuk menyusun langkah belajar yang tepat dan transparan bagi orang tua.',
+        meta: 'Sekretariat: Pasar Tapan, Basa Ampek Balai Tapan'
+      }
+    ];
+
+    const DEFAULT_DATA = {
+      parents: [
+        { id: 'par-1', name: 'Ibu Rahma', phone: '081267001122', address: 'Pasar Tapan', accountStatus: 'Aktif' },
+        { id: 'par-2', name: 'Bapak Hendra', phone: '081363002233', address: 'Basa Ampek Balai Tapan', accountStatus: 'Aktif' },
+        { id: 'par-3', name: 'Ibu Yanti', phone: '082284003344', address: 'Pasar Tapan', accountStatus: 'Aktif' }
+      ],
+      students: [
+        {
+          id: 'stu-1',
+          name: 'Nafisa Azzahra',
+          grade: 'Kelas 3 SD',
+          program: 'Balistung, TK–PAUD & SD',
+          mode: 'Reguler',
+          timeSlot: '16.00 WIB',
+          parentId: 'par-1',
+          classId: 'cls-1',
+          accountStatus: 'Aktif',
+          diagnosticResult: 'Membaca lancar, perkalian dasar mulai lancar, perlu latihan soal cerita.'
+        },
+        {
+          id: 'stu-2',
+          name: 'Arkan Pratama',
+          grade: 'Balistung / TK B',
+          program: 'Balistung, TK–PAUD & SD',
+          mode: 'Reguler',
+          timeSlot: '14.30 WIB',
+          parentId: 'par-1',
+          classId: 'cls-2',
+          accountStatus: 'Aktif',
+          diagnosticResult: 'Mengenal huruf & angka 1–20, fokus latihan menyambung suku kata.'
+        },
+        {
+          id: 'stu-3',
+          name: 'Rafi Ramadhan',
+          grade: 'Kelas 8 SMP',
+          program: 'SMP & SMA',
+          mode: 'Reguler',
+          timeSlot: '',
+          parentId: 'par-2',
+          classId: 'cls-3',
+          accountStatus: 'Aktif',
+          diagnosticResult: 'Aljabar dasar cukup baik, perlu pendalaman sistem persamaan & PR sekolah.'
+        },
+        {
+          id: 'stu-4',
+          name: 'Kayla Syahira',
+          grade: 'Kelas 6 SD',
+          program: 'Program Khusus TKA',
+          mode: 'Privat',
+          timeSlot: '16.00 WIB',
+          parentId: 'par-3',
+          classId: 'cls-4',
+          accountStatus: 'Aktif',
+          diagnosticResult: 'Siap mengikuti latihan terarah Program Khusus TKA.'
+        }
+      ],
+      registrations: [
+        {
+          id: 'reg-1',
+          studentName: 'Fathan Alfarizi',
+          grade: 'Kelas 2 SD',
+          program: 'Balistung, TK–PAUD & SD',
+          mode: 'Reguler',
+          timeSlot: '13.00 WIB',
+          parentName: 'Ibu Melati',
+          parentPhone: '085274005566',
+          notes: 'Ingin assessment diagnostik awal & bantuan PR harian',
+          status: 'Menunggu Verifikasi'
+        }
+      ],
+      tutors: [
+        { id: 'tut-1', name: 'Kak Zakiah', roleLabel: 'Tutor Calistung, SD & English', scheduleSummary: 'Senin–Jumat (13.00, 14.30, 16.00)', honor: 1450000 },
+        { id: 'tut-2', name: 'Kak Rahma', roleLabel: 'Tutor SD, SMP & Konsultasi PR', scheduleSummary: 'Senin–Sabtu (14.30, 16.00, 19.00)', honor: 1650000 },
+        { id: 'tut-3', name: 'Kak Dimas', roleLabel: 'Tutor SMP, SMA & Program TKA', scheduleSummary: 'Jadwal Kelas & Privat', honor: 1750000 }
+      ],
+      classes: [
+        { id: 'cls-1', name: 'SD Sore A', program: 'Balistung, TK–PAUD & SD', mode: 'Reguler', timeSlot: '16.00 WIB', tutorId: 'tut-1', capacity: 8 },
+        { id: 'cls-2', name: 'Balistung & TK Siang', program: 'Balistung, TK–PAUD & SD', mode: 'Reguler', timeSlot: '14.30 WIB', tutorId: 'tut-1', capacity: 8 },
+        { id: 'cls-3', name: 'SMP Reguler (12x)', program: 'SMP & SMA', mode: 'Reguler', timeSlot: '-', tutorId: 'tut-3', capacity: 8 },
+        { id: 'cls-4', name: 'Privat Khusus TKA', program: 'Program Khusus TKA', mode: 'Privat', timeSlot: '16.00 WIB', tutorId: 'tut-2', capacity: 8 }
+      ],
+      schedules: [
+        { id: 'sch-1', day: 'Senin – Kamis', timeLabel: '13.00 / 14.30 / 16.00 / 19.00 WIB', classId: 'cls-1', topic: 'Semua Mapel & Konsultasi PR' },
+        { id: 'sch-2', day: 'Jumat', timeLabel: '14.30 & 16.00 WIB', classId: 'cls-2', topic: 'Jumat Khusus Bahasa Inggris & Calistung' },
+        { id: 'sch-3', day: 'Selasa & Kamis', timeLabel: '12x Pertemuan / Bulan', classId: 'cls-3', topic: 'Pendalaman Materi SMP & PR Sekolah' },
+        { id: 'sch-4', day: 'Rabu & Sabtu', timeLabel: '16.00 WIB', classId: 'cls-4', topic: 'Latihan & Pembahasan Program Khusus TKA' }
+      ],
+      attendance: [
+        { id: 'att-1', date: '2026-11-23', studentId: 'stu-1', classId: 'cls-1', status: 'Hadir', prConsulted: true },
+        { id: 'att-2', date: '2026-11-23', studentId: 'stu-2', classId: 'cls-2', status: 'Hadir', prConsulted: true },
+        { id: 'att-3', date: '2026-11-23', studentId: 'stu-3', classId: 'cls-3', status: 'Izin', prConsulted: false },
+        { id: 'att-4', date: '2026-11-23', studentId: 'stu-4', classId: 'cls-4', status: 'Hadir', prConsulted: true }
+      ],
+      invoices: [
+        { id: 'inv-1', studentId: 'stu-1', period: 'November 2026', amount: 150000, status: 'Lunas', paidDate: '2026-11-04' },
+        { id: 'inv-2', studentId: 'stu-2', period: 'November 2026', amount: 150000, status: 'Belum Lunas', paidDate: '' },
+        { id: 'inv-3', studentId: 'stu-3', period: 'November 2026', amount: 250000, status: 'Belum Lunas', paidDate: '' },
+        { id: 'inv-4', studentId: 'stu-4', period: 'November 2026', amount: 0, status: 'Lunas', paidDate: '2026-11-05' }
+      ],
+      expenses: [
+        { id: 'exp-1', title: 'Sewa & Kebersihan Sekretariat Pasar Tapan', category: 'Operasional', amount: 850000, date: '2026-11-02' },
+        { id: 'exp-2', title: 'Modul Latihan, Kertas & ATK Assessment', category: 'Akademik', amount: 320000, date: '2026-11-08' },
+        { id: 'exp-3', title: 'Listrik, WiFi & Kuota Komunikasi', category: 'Utilitas', amount: 210000, date: '2026-11-12' }
+      ],
+      grades: [
+        { id: 'grd-1', studentId: 'stu-1', subject: 'Bahasa Inggris (Jumat)', score: 88, note: 'Aktif melafalkan kosakata baru & PR selesai rapi.' },
+        { id: 'grd-2', studentId: 'stu-2', subject: 'Balistung (Membaca & Berhitung)', score: 85, note: 'Semakin percaya diri mengeja kata & menghitung.' },
+        { id: 'grd-3', studentId: 'stu-3', subject: 'Matematika SMP', score: 82, note: 'Perlu konsisten latihan soal cerita.' },
+        { id: 'grd-4', studentId: 'stu-4', subject: 'Program Khusus TKA', score: 90, note: 'Ketepatan menjawab soal sangat baik.' }
+      ],
+      materials: [
+        { id: 'mat-1', classId: 'cls-1', title: 'Latihan Kosakata Bahasa Inggris (Edisi Jumat)', type: 'Modul PDF', uploadedBy: 'Kak Zakiah' },
+        { id: 'mat-2', classId: 'cls-2', title: 'Lembar Kerja Suku Kata & Berhitung Dasar', type: 'Worksheet', uploadedBy: 'Kak Zakiah' },
+        { id: 'mat-3', classId: 'cls-3', title: 'Ringkasan Rumus & Bank Soal SMP', type: 'Materi Kelas', uploadedBy: 'Kak Dimas' },
+        { id: 'mat-4', classId: 'cls-4', title: 'Paket Latihan Soal Program Khusus TKA', type: 'Latihan Soal', uploadedBy: 'Kak Rahma' }
+      ],
+      announcements: [
+        { id: 'ann-1', title: 'Jadwal Jumat Khusus Bahasa Inggris', body: 'Setiap hari Jumat pukul 14.30 & 16.00 WIB diadakan sesi khusus Bahasa Inggris untuk kelas Balistung, TK–PAUD & SD.', target: 'Semua Siswa & Orang Tua' },
+        { id: 'ann-2', title: 'Assessment Diagnostik Awal & Konsultasi PR', body: 'Siswa baru maupun siswa aktif dapat memanfaatkan sesi konsultasi PR di setiap pertemuan bersama tutor.', target: 'Seluruh Anggota Bimbel' }
+      ]
+    };
+
+    const QUIZ_BANK = [
+      {
+        q: 'Jika ada 24 buku dan dibagi rata ke dalam 8 rak di kelas Solutiva Z, berapa buku tiap rak?',
+        options: ['2 buku', '3 buku', '4 buku', '6 buku'],
+        answer: 1,
+        explanation: '24 dibagi 8 sama dengan 3 buku di setiap rak.'
+      },
+      {
+        q: 'Hari apa di Solutiva Z yang dikhususkan untuk Bahasa Inggris pada program Balistung, TK–PAUD & SD?',
+        options: ['Senin', 'Rabu', 'Jumat', 'Minggu'],
+        answer: 2,
+        explanation: 'Program Balistung, TK–PAUD & SD berjalan Senin–Jumat, dengan hari Jumat khusus Bahasa Inggris.'
+      },
+      {
+        q: 'Jika 3x + 6 = 21, berapakah nilai x?',
+        options: ['3', '5', '7', '9'],
+        answer: 1,
+        explanation: '3x = 21 - 6 = 15, maka x = 15 / 3 = 5.'
+      }
+    ];
+
+    let appData = loadData();
+    let uiState = {
+      activeRole: 'public',
+      activeMenu: 'dashboard',
+      activeTutorId: 'tut-1',
+      activeStudentId: 'stu-1',
+      activeParentId: 'par-1',
+      quizIndex: 0,
+      quizScore: 0,
+      quizAnswered: false,
+      quizSelected: null,
+      quizFinished: false,
+      confirmCallback: null
+    };
+
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(DEFAULT_DATA));
+          return structuredClone(DEFAULT_DATA);
+        }
+        return { ...structuredClone(DEFAULT_DATA), ...JSON.parse(raw) };
+      } catch (err) {
+        return structuredClone(DEFAULT_DATA);
+      }
+    }
+
+    function saveData() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+      } catch (err) {
+        showToast('Gagal menyimpan perubahan ke browser.', 'error');
+      }
+    }
+
+    function formatRupiah(num) {
+      return 'Rp' + Number(num || 0).toLocaleString('id-ID');
+    }
+
+    function escapeHTML(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const colorMap = {
+        success: 'bg-emerald-600 text-white',
+        error: 'bg-rose-600 text-white',
+        info: 'bg-slate-900 text-white'
+      };
+      const el = document.createElement('div');
+      el.className = `px-4 py-3 rounded-2xl shadow-lg text-xs font-bold fade-in pointer-events-auto flex items-center justify-between gap-2 ${colorMap[type] || colorMap.info}`;
+      el.innerHTML = `<span>${escapeHTML(message)}</span>`;
+      container.appendChild(el);
+      setTimeout(() => {
+        el.remove();
+      }, 3200);
+    }
+
+    function refreshIcons() {
+      if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
+      }
+    }
+
+    // Lookup helpers
+    const getParentById = (id) => appData.parents.find(p => p.id === id) || null;
+    const getStudentById = (id) => appData.students.find(s => s.id === id) || null;
+    const getTutorById = (id) => appData.tutors.find(t => t.id === id) || null;
+    const getClassById = (id) => appData.classes.find(c => c.id === id) || null;
+    const getStudentParent = (student) => getParentById(student?.parentId);
+    const getClassStudents = (classId) => appData.students.filter(s => s.classId === classId);
+
+    // Role & navigation switching
+    const ROLE_MENUS = {
+      owner: [
+        { id: 'dashboard', label: 'Dashboard Owner', icon: 'layout-dashboard' },
+        { id: 'students', label: 'Data Siswa & Ortu', icon: 'users' },
+        { id: 'tutors', label: 'Data Guru / Tutor', icon: 'graduation-cap' },
+        { id: 'classes', label: 'Kelas & Jadwal', icon: 'school' },
+        { id: 'attendance', label: 'Absensi', icon: 'clipboard-check' },
+        { id: 'finance', label: 'Keuangan & SPP', icon: 'wallet' },
+        { id: 'academic', label: 'Akademik & Materi', icon: 'book-open' },
+        { id: 'announcements', label: 'Pengumuman', icon: 'megaphone' },
+        { id: 'reports', label: 'Laporan Bulanan', icon: 'printer' }
+      ],
+      admin: [
+        { id: 'dashboard', label: 'Dashboard Admin', icon: 'layout-dashboard' },
+        { id: 'students', label: 'Pendaftaran, Siswa & Ortu', icon: 'user-plus' },
+        { id: 'classes', label: 'Kelas & Jadwal', icon: 'calendar' },
+        { id: 'attendance', label: 'Absensi Siswa', icon: 'check-square' },
+        { id: 'finance', label: 'Tagihan SPP & WA', icon: 'receipt' },
+        { id: 'academic', label: 'Nilai & Materi', icon: 'file-text' },
+        { id: 'announcements', label: 'Pengumuman', icon: 'megaphone' }
+      ],
+      tutor: [
+        { id: 'dashboard', label: 'Jadwal & Kelas Saya', icon: 'calendar-check' },
+        { id: 'attendance', label: 'Input Absensi & PR', icon: 'clipboard-check' },
+        { id: 'academic', label: 'Nilai, Catatan & Materi', icon: 'book-open' }
+      ],
+      student: [
+        { id: 'dashboard', label: 'Ringkasan & Jadwal', icon: 'layout-dashboard' },
+        { id: 'academic', label: 'Materi, Nilai & Latihan', icon: 'sparkles' },
+        { id: 'attendance', label: 'Kehadiran & Pengumuman', icon: 'bell' }
+      ],
+      parent: [
+        { id: 'dashboard', label: 'Pantau Anak & Tagihan', icon: 'heart-handshake' },
+        { id: 'academic', label: 'Nilai & Perkembangan', icon: 'trending-up' },
+        { id: 'attendance', label: 'Kehadiran & Pengumuman', icon: 'calendar-days' }
+      ]
+    };
+
+    const ROLE_META = {
+      owner: { badge: 'Owner', title: 'Pemilik Solutiva Z', subtitle: 'Kendali penuh operasional, keuangan & laporan', badgeClass: 'bg-blue-700 text-white' },
+      admin: { badge: 'Admin', title: 'Admin Operasional', subtitle: 'Verifikasi pendaftaran, kelas, SPP & WA', badgeClass: 'bg-pink-600 text-white' },
+      tutor: { badge: 'Guru / Tutor', title: 'Portal Guru / Tutor', subtitle: 'Akses kelas yang ditugaskan', badgeClass: 'bg-indigo-600 text-white' },
+      student: { badge: 'Siswa', title: 'Portal Siswa', subtitle: 'Jadwal, materi, nilai & latihan soal', badgeClass: 'bg-pink-500 text-white' },
+      parent: { badge: 'Orang Tua', title: 'Portal Orang Tua', subtitle: 'Pantau seluruh anak yang terhubung', badgeClass: 'bg-blue-600 text-white' }
+    };
+
+    function switchAppRole(role, preferredMenu = 'dashboard') {
+      uiState.activeRole = role;
+      document.querySelectorAll('.role-switch-btn').forEach(btn => {
+        const isCurrent = btn.getAttribute('data-role-tab') === role;
+        btn.className = isCurrent
+          ? 'role-switch-btn px-3 py-1.5 rounded-xl bg-white text-slate-900 text-xs font-extrabold shrink-0 transition-all flex items-center gap-1.5 shadow-xs'
+          : 'role-switch-btn px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold shrink-0 transition-all flex items-center gap-1.5';
+      });
+
+      const publicEl = document.getElementById('view-public');
+      const workspaceEl = document.getElementById('view-workspace');
+
+      if (role === 'public') {
+        publicEl.classList.remove('hidden');
+        workspaceEl.classList.add('hidden');
+        refreshIcons();
+        return;
+      }
+
+      publicEl.classList.add('hidden');
+      workspaceEl.classList.remove('hidden');
+
+      const menus = ROLE_MENUS[role] || [];
+      uiState.activeMenu = menus.some(m => m.id === preferredMenu) ? preferredMenu : (menus[0]?.id || 'dashboard');
+      renderWorkspace();
+    }
+
+    function selectWorkspaceMenu(menuId) {
+      uiState.activeMenu = menuId;
+      renderWorkspace();
+    }
+
+    function handleWorkspaceContextChange(val) {
+      if (uiState.activeRole === 'tutor') uiState.activeTutorId = val;
+      if (uiState.activeRole === 'student') uiState.activeStudentId = val;
+      if (uiState.activeRole === 'parent') uiState.activeParentId = val;
+      renderWorkspace();
+    }
+
+    function renderWorkspace() {
+      const role = uiState.activeRole;
+      const meta = ROLE_META[role];
+      const badgeEl = document.getElementById('workspace-role-badge');
+      const titleEl = document.getElementById('workspace-user-title');
+      const subEl = document.getElementById('workspace-user-subtitle');
+      const ctxWrap = document.getElementById('workspace-context-switcher');
+      const ctxLabel = document.getElementById('workspace-context-label');
+      const ctxSelect = document.getElementById('workspace-context-select');
+
+      badgeEl.textContent = meta.badge;
+      badgeEl.className = `px-2.5 py-0.5 rounded-full text-[11px] font-extrabold uppercase ${meta.badgeClass}`;
+      titleEl.textContent = meta.title;
+      subEl.textContent = meta.subtitle;
+
+      ctxWrap.classList.add('hidden');
+      if (role === 'tutor') {
+        ctxWrap.classList.remove('hidden');
+        ctxLabel.textContent = 'Akun Tutor Aktif';
+        ctxSelect.innerHTML = appData.tutors.map(t => `<option value="${t.id}" ${t.id === uiState.activeTutorId ? 'selected' : ''}>${escapeHTML(t.name)}</option>`).join('');
+        const curTutor = getTutorById(uiState.activeTutorId) || appData.tutors[0];
+        if (curTutor) {
+          titleEl.textContent = curTutor.name;
+          subEl.textContent = curTutor.roleLabel;
+        }
+      } else if (role === 'student') {
+        ctxWrap.classList.remove('hidden');
+        ctxLabel.textContent = 'Akun Siswa Aktif';
+        ctxSelect.innerHTML = appData.students.map(s => `<option value="${s.id}" ${s.id === uiState.activeStudentId ? 'selected' : ''}>${escapeHTML(s.name)} · ${escapeHTML(s.grade)}</option>`).join('');
+        const curStudent = getStudentById(uiState.activeStudentId) || appData.students[0];
+        if (curStudent) {
+          titleEl.textContent = curStudent.name;
+          subEl.textContent = `${curStudent.grade} · ${curStudent.program}`;
+        }
+      } else if (role === 'parent') {
+        ctxWrap.classList.remove('hidden');
+        ctxLabel.textContent = 'Akun Orang Tua Aktif';
+        ctxSelect.innerHTML = appData.parents.map(p => {
+          const count = appData.students.filter(s => s.parentId === p.id).length;
+          return `<option value="${p.id}" ${p.id === uiState.activeParentId ? 'selected' : ''}>${escapeHTML(p.name)} (${count} anak)</option>`;
+        }).join('');
+        const curParent = getParentById(uiState.activeParentId) || appData.parents[0];
+        if (curParent) {
+          titleEl.textContent = curParent.name;
+          subEl.textContent = `WA: ${curParent.phone} · ${curParent.address}`;
+        }
+      }
+
+      // Render nav
+      const menus = ROLE_MENUS[role] || [];
+      const navEl = document.getElementById('workspace-menu-nav');
+      navEl.innerHTML = menus.map(m => {
+        const active = m.id === uiState.activeMenu;
+        return `
+          <button type="button" onclick="selectWorkspaceMenu('${m.id}')" class="w-auto lg:w-full px-3.5 py-2.5 rounded-2xl text-xs font-bold shrink-0 flex items-center gap-2.5 transition-all ${
+            active
+              ? 'bg-gradient-to-r from-pink-600 to-blue-600 text-white shadow-sm'
+              : 'text-slate-600 hover:bg-pink-50/80 hover:text-slate-900'
+          }">
+            <i data-lucide="${m.icon}" class="w-4 h-4 shrink-0"></i>
+            <span>${escapeHTML(m.label)}</span>
+          </button>
+        `;
+      }).join('');
+
+      const contentEl = document.getElementById('workspace-content');
+      contentEl.innerHTML = buildWorkspaceSection(role, uiState.activeMenu);
+      refreshIcons();
+    }
+
+    function buildWorkspaceSection(role, menu) {
+      if (role === 'owner' || role === 'admin') {
+        switch (menu) {
+          case 'students': return renderStudentsAndRegistrationsSection(role);
+          case 'tutors': return renderTutorsSection(role);
+          case 'classes': return renderClassesAndSchedulesSection(role);
+          case 'attendance': return renderAttendanceSection(role);
+          case 'finance': return renderFinanceSection(role);
+          case 'academic': return renderAcademicSection(role);
+          case 'announcements': return renderAnnouncementsSection(role);
+          case 'reports': return renderReportsSection();
+          default: return renderOwnerAdminDashboard(role);
+        }
+      }
+
+      if (role === 'tutor') {
+        const tutor = getTutorById(uiState.activeTutorId) || appData.tutors[0];
+        const assignedClasses = appData.classes.filter(c => c.tutorId === tutor?.id);
+        const assignedClassIds = assignedClasses.map(c => c.id);
+        const myStudents = appData.students.filter(s => assignedClassIds.includes(s.classId));
+
+        if (menu === 'attendance') {
+          return renderAttendanceSection('tutor', myStudents, assignedClasses);
+        }
+        if (menu === 'academic') {
+          return renderAcademicSection('tutor', myStudents, assignedClasses, tutor?.name || 'Tutor');
+        }
+        return `
+          <div class="bg-white rounded-3xl p-6 border border-blue-100 shadow-xs space-y-5">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <span class="text-xs font-extrabold text-pink-600">Portal Guru / Tutor</span>
+                <h2 class="font-display font-extrabold text-2xl text-slate-900">Halo, ${escapeHTML(tutor?.name || '')} 👋</h2>
+                <p class="text-xs text-slate-500">Anda hanya mengakses kelas yang ditugaskan kepada Anda.</p>
+              </div>
+              <span class="px-3 py-1.5 rounded-xl bg-blue-50 text-blue-700 text-xs font-bold">${assignedClasses.length} Kelas Ditugaskan · ${myStudents.length} Siswa</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              ${assignedClasses.map(cls => {
+                const count = getClassStudents(cls.id).length;
+                return `
+                  <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50/70 space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="font-display font-extrabold text-base text-slate-900">${escapeHTML(cls.name)}</span>
+                      <span class="px-2.5 py-0.5 rounded-full bg-pink-100 text-pink-700 text-[11px] font-extrabold">${count}/${cls.capacity} Siswa</span>
+                    </div>
+                    <p class="text-xs text-slate-600"><strong>${escapeHTML(cls.program)}</strong> · Mode: ${escapeHTML(cls.mode)}</p>
+                    <p class="text-xs text-blue-700 font-semibold">Waktu / Jadwal: ${escapeHTML(cls.timeSlot)}</p>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+
+            <div class="space-y-2">
+              <h3 class="font-display font-bold text-sm text-slate-900">Daftar Siswa di Kelas Anda</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr class="border-b border-slate-200 text-slate-500">
+                      <th class="py-2 pr-3">Nama Siswa</th>
+                      <th class="py-2 px-3">Jenjang</th>
+                      <th class="py-2 px-3">Kelas</th>
+                      <th class="py-2 pl-3">Catatan Assessment Awal</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100">
+                    ${myStudents.map(s => {
+                      const cls = getClassById(s.classId);
+                      return `
+                        <tr>
+                          <td class="py-2.5 pr-3 font-bold text-slate-900">${escapeHTML(s.name)}</td>
+                          <td class="py-2.5 px-3">${escapeHTML(s.grade)}</td>
+                          <td class="py-2.5 px-3 font-semibold text-blue-700">${escapeHTML(cls?.name || '-')}</td>
+                          <td class="py-2.5 pl-3 text-slate-600">${escapeHTML(s.diagnosticResult || '-')}</td>
+                        </tr>
+                      `;
+                    }).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      if (role === 'student') {
+        const student = getStudentById(uiState.activeStudentId) || appData.students[0];
+        const cls = getClassById(student?.classId);
+        const tutor = getTutorById(cls?.tutorId);
+        const myGrades = appData.grades.filter(g => g.studentId === student?.id);
+        const myMaterials = appData.materials.filter(m => m.classId === student?.classId);
+        const myAttendance = appData.attendance.filter(a => a.studentId === student?.id);
+
+        if (menu === 'academic') {
+          return renderStudentAcademicAndQuiz(student, myGrades, myMaterials);
+        }
+        if (menu === 'attendance') {
+          return `
+            <div class="space-y-6">
+              <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-3">
+                <h3 class="font-display font-extrabold text-lg text-slate-900">Riwayat Kehadiran (${escapeHTML(student.name)})</h3>
+                <div class="divide-y divide-slate-100 text-xs sm:text-sm">
+                  ${myAttendance.length ? myAttendance.map(a => `
+                    <div class="py-2.5 flex items-center justify-between">
+                      <div>
+                        <span class="font-bold text-slate-800">${escapeHTML(a.date)}</span>
+                        <span class="text-slate-500 ml-2">· Konsultasi PR: ${a.prConsulted ? 'Ya' : 'Tidak'}</span>
+                      </div>
+                      <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${a.status === 'Hadir' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-800'}">${escapeHTML(a.status)}</span>
+                    </div>
+                  `).join('') : '<p class="text-xs text-slate-500 py-3">Belum ada catatan kehadiran.</p>'}
+                </div>
+              </div>
+              ${renderAnnouncementsListOnly()}
+            </div>
+          `;
+        }
+
+        return `
+          <div class="bg-white rounded-3xl p-6 border border-pink-100 shadow-xs space-y-5">
+            <div>
+              <span class="text-xs font-extrabold text-pink-600">Portal Siswa</span>
+              <h2 class="font-display font-extrabold text-2xl text-slate-900">Halo, ${escapeHTML(student.name)}!</h2>
+              <p class="text-xs text-slate-500">${escapeHTML(student.grade)} · ${escapeHTML(student.program)} (${escapeHTML(student.mode)})</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+              <div class="p-4 rounded-2xl bg-pink-50 border border-pink-100">
+                <p class="text-pink-700 font-bold">Kelas & Jadwal</p>
+                <p class="font-display font-extrabold text-base text-slate-900 mt-1">${escapeHTML(cls?.name || '-')}</p>
+                <p class="text-slate-600 mt-0.5">${escapeHTML(student.timeSlot || cls?.timeSlot || 'Sesuai jadwal kelas')}</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-blue-50 border border-blue-100">
+                <p class="text-blue-700 font-bold">Tutor Pembimbing</p>
+                <p class="font-display font-extrabold text-base text-slate-900 mt-1">${escapeHTML(tutor?.name || '-')}</p>
+                <p class="text-slate-600 mt-0.5">Konsultasi PR tiap pertemuan</p>
+              </div>
+              <div class="p-4 rounded-2xl bg-amber-50 border border-amber-100">
+                <p class="text-amber-800 font-bold">Assessment Diagnostik Awal</p>
+                <p class="text-slate-700 font-medium mt-1 leading-relaxed">${escapeHTML(student.diagnosticResult || '-')}</p>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" onclick="selectWorkspaceMenu('academic')" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 to-blue-600 text-white font-bold text-xs">Buka Materi, Nilai & Latihan Soal</button>
+            </div>
+          </div>
+        `;
+      }
+
+      if (role === 'parent') {
+        const parent = getParentById(uiState.activeParentId) || appData.parents[0];
+        const children = appData.students.filter(s => s.parentId === parent?.id);
+        const childIds = children.map(c => c.id);
+        const childInvoices = appData.invoices.filter(inv => childIds.includes(inv.studentId));
+        const childGrades = appData.grades.filter(g => childIds.includes(g.studentId));
+        const childAttendance = appData.attendance.filter(a => childIds.includes(a.studentId));
+
+        return `
+          <div class="space-y-6">
+            <div class="bg-white rounded-3xl p-6 border border-pink-100 shadow-xs space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <span class="text-xs font-extrabold text-pink-600">Portal Orang Tua</span>
+                  <h2 class="font-display font-extrabold text-2xl text-slate-900">${escapeHTML(parent.name)}</h2>
+                  <p class="text-xs text-slate-500">Menampilkan data khusus untuk <strong>${children.length} anak</strong> yang terhubung dengan akun ini.</p>
+                </div>
+                <button type="button" onclick="openWhatsAppModal('parent-help', parent.phone, parent.name)" class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs flex items-center gap-1.5">
+                  <i data-lucide="message-circle" class="w-4 h-4"></i>
+                  <span>Hubungi Admin WA</span>
+                </button>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                ${children.map(ch => {
+                  const cls = getClassById(ch.classId);
+                  const inv = appData.invoices.find(i => i.studentId === ch.id);
+                  const notes = appData.grades.filter(g => g.studentId === ch.id);
+                  return `
+                    <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50/70 space-y-2.5 text-xs">
+                      <div class="flex items-center justify-between">
+                        <div>
+                          <p class="font-display font-extrabold text-base text-slate-900">${escapeHTML(ch.name)}</p>
+                          <p class="text-slate-600">${escapeHTML(ch.grade)} · ${escapeHTML(ch.program)} (${escapeHTML(ch.mode)})</p>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full font-bold ${inv?.status === 'Lunas' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-800'}">
+                          ${inv ? escapeHTML(inv.status) : 'Belum Ada Tagihan'}
+                        </span>
+                      </div>
+                      <p class="text-blue-700 font-semibold">Kelas: ${escapeHTML(cls?.name || '-')} ${ch.timeSlot ? '(' + escapeHTML(ch.timeSlot) + ')' : ''}</p>
+                      <p class="text-slate-600"><strong>Assessment Awal:</strong> ${escapeHTML(ch.diagnosticResult || '-')}</p>
+                      ${notes.length ? `<p class="text-pink-700 font-medium">Perkembangan terbaru: ${escapeHTML(notes[notes.length - 1].note)} (Nilai: ${notes[notes.length - 1].score})</p>` : ''}
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-xs space-y-3">
+                <h3 class="font-display font-bold text-base text-slate-900">Tagihan SPP Bulanan Anak</h3>
+                ${childInvoices.length ? childInvoices.map(inv => {
+                  const st = getStudentById(inv.studentId);
+                  return `
+                    <div class="p-3 rounded-2xl bg-slate-50 flex items-center justify-between text-xs">
+                      <div>
+                        <p class="font-bold text-slate-800">${escapeHTML(st?.name || '')} · ${escapeHTML(inv.period)}</p>
+                        <p class="text-slate-600 font-semibold">${formatRupiah(inv.amount)}</p>
+                      </div>
+                      <span class="px-2.5 py-1 rounded-full font-bold ${inv.status === 'Lunas' ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}">${escapeHTML(inv.status)}</span>
+                    </div>
+                  `;
+                }).join('') : '<p class="text-xs text-slate-500">Belum ada tagihan.</p>'}
+              </div>
+
+              <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-xs space-y-3">
+                <h3 class="font-display font-bold text-base text-slate-900">Kehadiran & Nilai Terbaru</h3>
+                <p class="text-xs text-slate-600">Total catatan kehadiran: <strong>${childAttendance.length}</strong> · Total catatan nilai: <strong>${childGrades.length}</strong></p>
+                <div class="space-y-2 text-xs">
+                  ${childGrades.slice(-3).reverse().map(g => {
+                    const st = getStudentById(g.studentId);
+                    return `
+                      <div class="p-3 rounded-2xl bg-pink-50/70 border border-pink-100">
+                        <p class="font-bold text-slate-800">${escapeHTML(st?.name || '')} — ${escapeHTML(g.subject)} (${g.score})</p>
+                        <p class="text-slate-600 mt-0.5">${escapeHTML(g.note)}</p>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            </div>
+
+            ${renderAnnouncementsListOnly()}
+          </div>
+        `;
+      }
+
+      return '';
+    }
+
+    // Owner & Admin Dashboard
+    function renderOwnerAdminDashboard(role) {
+      const totalStudents = appData.students.length;
+      const totalTutors = appData.tutors.length;
+      const totalClasses = appData.classes.length;
+      const pendingRegs = appData.registrations.filter(r => r.status === 'Menunggu Verifikasi').length;
+      const paidSpp = appData.invoices.filter(i => i.status === 'Lunas').reduce((sum, i) => sum + Number(i.amount || 0), 0);
+      const unpaidSpp = appData.invoices.filter(i => i.status !== 'Lunas').reduce((sum, i) => sum + Number(i.amount || 0), 0);
+      const totalExpenses = appData.expenses.reduce((sum, e) => sum + Number(e.amount || 0), 0);
+      const netBalance = paidSpp - totalExpenses;
+
+      return `
+        <div class="space-y-6">
+          <div class="bg-white rounded-3xl p-6 border border-pink-100 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span class="px-2.5 py-1 rounded-full bg-pink-100 text-pink-700 text-[11px] font-extrabold uppercase">${role === 'owner' ? 'Dashboard Owner' : 'Dashboard Admin'}</span>
+              <h2 class="font-display font-extrabold text-2xl text-slate-900 mt-1">Ringkasan Operasional Solutiva Z</h2>
+              <p class="text-xs text-slate-500">Pasar Tapan, Basa Ampek Balai Tapan · Kapasitas standar maks. 8 siswa/kelas</p>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" onclick="selectWorkspaceMenu('students')" class="px-3.5 py-2 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs">
+                Pendaftaran (${pendingRegs})
+              </button>
+              <button type="button" onclick="selectWorkspaceMenu('finance')" class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs">
+                Keuangan & SPP
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs">
+              <p class="text-xs text-slate-500 font-semibold">Total Siswa Aktif</p>
+              <p class="font-display font-extrabold text-2xl text-slate-900 mt-1">${totalStudents}</p>
+              <p class="text-[11px] text-pink-600 font-bold mt-1">${pendingRegs} pendaftaran baru</p>
+            </div>
+            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs">
+              <p class="text-xs text-slate-500 font-semibold">Guru / Tutor & Kelas</p>
+              <p class="font-display font-extrabold text-2xl text-slate-900 mt-1">${totalTutors} / ${totalClasses}</p>
+              <p class="text-[11px] text-blue-700 font-bold mt-1">Maks. ${CLASS_CAPACITY_LIMIT} siswa / kelas</p>
+            </div>
+            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs">
+              <p class="text-xs text-slate-500 font-semibold">SPP Terkumpul</p>
+              <p class="font-display font-extrabold text-xl text-emerald-700 mt-1">${formatRupiah(paidSpp)}</p>
+              <p class="text-[11px] text-rose-600 font-bold mt-1">Tunggakan: ${formatRupiah(unpaidSpp)}</p>
+            </div>
+            <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-xs">
+              <p class="text-xs text-slate-500 font-semibold">${role === 'owner' ? 'Saldo Bersih (SPP - Pengeluaran)' : 'Total Pengeluaran'}</p>
+              <p class="font-display font-extrabold text-xl ${role === 'owner' ? (netBalance >= 0 ? 'text-blue-700' : 'text-rose-700') : 'text-slate-900'} mt-1">
+                ${formatRupiah(role === 'owner' ? netBalance : totalExpenses)}
+              </p>
+              <p class="text-[11px] text-slate-500 mt-1">Biaya registrasi Rp50.000</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-xs space-y-3">
+              <h3 class="font-display font-bold text-base text-slate-900">Tagihan Belum Lunas</h3>
+              ${appData.invoices.filter(i => i.status !== 'Lunas').map(inv => {
+                const st = getStudentById(inv.studentId);
+                const par = getStudentParent(st);
+                return `
+                  <div class="p-3 rounded-2xl bg-rose-50/70 border border-rose-100 flex items-center justify-between gap-2 text-xs">
+                    <div>
+                      <p class="font-bold text-slate-900">${escapeHTML(st?.name || '')} (${escapeHTML(st?.grade || '')})</p>
+                      <p class="text-rose-700 font-bold">${formatRupiah(inv.amount)} · Ortu: ${escapeHTML(par?.name || '-')}</p>
+                    </div>
+                    <button type="button" onclick="openWhatsAppModal('invoice-reminder', '${escapeHTML(par?.phone || WA_BUSINESS_NUMBER)}', '${escapeHTML(st?.name || '')}', ${inv.amount})" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold">
+                      Kirim WA
+                    </button>
+                  </div>
+                `;
+              }).join('') || '<p class="text-xs text-emerald-700 font-semibold">Semua tagihan bulan ini sudah lunas.</p>'}
+            </div>
+
+            <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-xs space-y-3">
+              <h3 class="font-display font-bold text-base text-slate-900">Kapasitas Kelas (Maks. 8 Siswa)</h3>
+              <div class="space-y-2.5 text-xs">
+                ${appData.classes.map(c => {
+                  const count = getClassStudents(c.id).length;
+                  const tut = getTutorById(c.tutorId);
+                  return `
+                    <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200/70 flex items-center justify-between">
+                      <div>
+                        <p class="font-bold text-slate-900">${escapeHTML(c.name)} <span class="text-slate-500 font-normal">(${escapeHTML(c.mode)})</span></p>
+                        <p class="text-slate-600">${escapeHTML(c.program)} · Tutor: ${escapeHTML(tut?.name || '-')}</p>
+                      </div>
+                      <span class="px-2.5 py-1 rounded-full font-extrabold ${count >= c.capacity ? 'bg-rose-100 text-rose-700' : 'bg-blue-100 text-blue-700'}">${count}/${c.capacity}</span>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Students, Parents & Registration Verification
+    function renderStudentsAndRegistrationsSection(role) {
+      const pending = appData.registrations.filter(r => r.status === 'Menunggu Verifikasi');
+      return `
+        <div class="space-y-6">
+          <div class="bg-white rounded-3xl p-6 border border-pink-100 shadow-xs space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 class="font-display font-extrabold text-xl text-slate-900">Antrean Pendaftaran Online (${pending.length} Menunggu Verifikasi)</h2>
+                <p class="text-xs text-slate-500">Admin memeriksa pendaftaran, menetapkan kelas (maks. 8 siswa), mengaktifkan akun siswa & orang tua, lalu menerbitkan tagihan bulanan.</p>
+              </div>
+              <button type="button" onclick="openAddStudentModal()" class="px-4 py-2 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-bold text-xs flex items-center gap-1.5">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                <span>Input Siswa oleh Admin</span>
+              </button>
+            </div>
+
+            ${pending.length ? `
+              <div class="space-y-3">
+                ${pending.map(reg => `
+                  <div class="p-4 rounded-2xl bg-pink-50/70 border border-pink-200 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs">
+                    <div class="space-y-1">
+                      <p class="font-display font-extrabold text-sm text-slate-900">${escapeHTML(reg.studentName)} <span class="text-pink-700">(${escapeHTML(reg.grade)})</span></p>
+                      <p class="text-slate-700">Program: <strong>${escapeHTML(reg.program)}</strong> · Mode: <strong>${escapeHTML(reg.mode)}</strong> ${reg.timeSlot ? '· Jam: <strong>' + escapeHTML(reg.timeSlot) + '</strong>' : ''}</p>
+                      <p class="text-slate-600">Ortu: <strong>${escapeHTML(reg.parentName)}</strong> (WA: ${escapeHTML(reg.parentPhone)})</p>
+                      ${reg.notes ? `<p class="text-slate-500 italic">"${escapeHTML(reg.notes)}"</p>` : ''}
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0">
+                      <button type="button" onclick="openVerifyRegistrationModal('${reg.id}')" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold">
+                        Verifikasi & Aktifkan
+                      </button>
+                      <button type="button" onclick="rejectRegistration('${reg.id}')" class="px-3 py-2 rounded-xl bg-white border border-rose-300 text-rose-700 font-bold hover:bg-rose-50">
+                        Tolak
+                      </button>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            ` : '<p class="text-xs text-slate-500">Tidak ada pendaftaran baru yang menunggu verifikasi saat ini.</p>'}
+          </div>
+
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+            <h3 class="font-display font-bold text-lg text-slate-900">Data Siswa & Orang Tua Aktif (${appData.students.length})</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-200 text-slate-500">
+                    <th class="py-2 pr-3">Siswa & Jenjang</th>
+                    <th class="py-2 px-3">Program & Mode</th>
+                    <th class="py-2 px-3">Kelas</th>
+                    <th class="py-2 px-3">Orang Tua & WA</th>
+                    <th class="py-2 pl-3">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  ${appData.students.map(s => {
+                    const par = getStudentParent(s);
+                    const cls = getClassById(s.classId);
+                    return `
+                      <tr>
+                        <td class="py-3 pr-3">
+                          <p class="font-bold text-slate-900">${escapeHTML(s.name)}</p>
+                          <p class="text-slate-500">${escapeHTML(s.grade)} ${s.timeSlot ? '· ' + escapeHTML(s.timeSlot) : ''}</p>
+                        </td>
+                        <td class="py-3 px-3">
+                          <p class="font-semibold text-slate-800">${escapeHTML(s.program)}</p>
+                          <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-100 text-blue-700">${escapeHTML(s.mode)}</span>
+                        </td>
+                        <td class="py-3 px-3 font-semibold text-pink-700">${escapeHTML(cls?.name || '-')}</td>
+                        <td class="py-3 px-3">
+                          <p class="font-semibold text-slate-800">${escapeHTML(par?.name || '-')}</p>
+                          <p class="text-slate-500">${escapeHTML(par?.phone || '-')}</p>
+                        </td>
+                        <td class="py-3 pl-3">
+                          <button type="button" onclick="openWhatsAppModal('general', '${escapeHTML(par?.phone || WA_BUSINESS_NUMBER)}', '${escapeHTML(par?.name || '')}')" class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white font-bold">WA Ortu</button>
+                        </td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function openVerifyRegistrationModal(regId) {
+      const reg = appData.registrations.find(r => r.id === regId);
+      if (!reg) return;
+      const defaultFee = PROGRAM_FEES[reg.program] ?? 150000;
+
+      openUniversalModal(
+        'Verifikasi Pendaftaran & Aktivasi Akun',
+        `Calon siswa: ${reg.studentName} (${reg.grade})`,
+        `
+          <form onsubmit="confirmVerifyRegistration(event, '${reg.id}')" class="space-y-3">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Tetapkan Kelas (Maks. ${CLASS_CAPACITY_LIMIT} Siswa) *</label>
+              <select name="classId" required class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold">
+                ${appData.classes.map(c => {
+                  const used = getClassStudents(c.id).length;
+                  const full = used >= c.capacity;
+                  return `<option value="${c.id}" ${full ? 'disabled' : ''}>${escapeHTML(c.name)} (${used}/${c.capacity} siswa) ${full ? '- PENUH' : ''}</option>`;
+                }).join('')}
+              </select>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Tagihan Bulanan Awal (Rp)</label>
+              <input type="number" name="monthlyFee" value="${defaultFee}" min="0" step="5000" required class="w-full px-3 py-2 rounded-xl border border-slate-300 font-semibold" />
+              <p class="text-[11px] text-slate-500 mt-0.5">Biaya registrasi Rp50.000 dicatat terpisah sesuai kebutuhan administrasi.</p>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Catatan Assessment Diagnostik Awal</label>
+              <input type="text" name="diagnosticResult" value="Siap mengikuti assessment diagnostik awal." class="w-full px-3 py-2 rounded-xl border border-slate-300" />
+            </div>
+            <div class="flex justify-end gap-2 pt-2">
+              <button type="button" onclick="closeUniversalModal()" class="px-4 py-2 rounded-xl border border-slate-300 font-bold text-xs">Batal</button>
+              <button type="submit" class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold text-xs">Aktifkan Akun & Terbitkan Tagihan</button>
+            </div>
+          </form>
+        `
+      );
+    }
+
+    function confirmVerifyRegistration(event, regId) {
+      event.preventDefault();
+      const reg = appData.registrations.find(r => r.id === regId);
+      if (!reg) return;
+      const fd = new FormData(event.target);
+      const classId = fd.get('classId');
+      const cls = getClassById(classId);
+      if (!cls || getClassStudents(classId).length >= cls.capacity) {
+        showToast('Kelas penuh atau tidak ditemukan.', 'error');
+        return;
+      }
+
+      let parent = appData.parents.find(p => p.phone === reg.parentPhone || p.name.toLowerCase() === reg.parentName.toLowerCase());
+      if (!parent) {
+        parent = {
+          id: 'par-' + Date.now(),
+          name: reg.parentName,
+          phone: reg.parentPhone,
+          address: 'Pasar Tapan',
+          accountStatus: 'Aktif'
+        };
+        appData.parents.push(parent);
+      }
+
+      const newStudentId = 'stu-' + Date.now();
+      appData.students.push({
+        id: newStudentId,
+        name: reg.studentName,
+        grade: reg.grade,
+        program: reg.program,
+        mode: reg.mode,
+        timeSlot: reg.timeSlot || '',
+        parentId: parent.id,
+        classId,
+        accountStatus: 'Aktif',
+        diagnosticResult: fd.get('diagnosticResult') || 'Siap mengikuti assessment diagnostik awal.'
+      });
+
+      const amount = Number(fd.get('monthlyFee') || 0);
+      appData.invoices.push({
+        id: 'inv-' + Date.now(),
+        studentId: newStudentId,
+        period: 'November 2026',
+        amount,
+        status: amount === 0 ? 'Lunas' : 'Belum Lunas',
+        paidDate: amount === 0 ? '2026-11-24' : ''
+      });
+
+      reg.status = 'Terverifikasi';
+      saveData();
+      closeUniversalModal();
+      renderWorkspace();
+      showToast(`Akun ${reg.studentName} & orang tua aktif, tagihan diterbitkan!`, 'success');
+    }
+
+    function rejectRegistration(regId) {
+      const reg = appData.registrations.find(r => r.id === regId);
+      if (!reg) return;
+      reg.status = 'Ditolak';
+      saveData();
+      renderWorkspace();
+      showToast('Pendaftaran ditandai ditolak.', 'info');
+    }
+
+    function openAddStudentModal() {
+      openUniversalModal(
+        'Input Siswa & Orang Tua oleh Admin',
+        'Tambah siswa baru langsung ke sistem Solutiva Z',
+        `
+          <form onsubmit="submitAdminAddStudent(event)" class="space-y-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Nama Siswa *</label>
+                <input type="text" name="name" required class="w-full px-3 py-2 rounded-xl border border-slate-300" />
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Jenjang / Kelas *</label>
+                <input type="text" name="grade" required placeholder="Contoh: Kelas 5 SD" class="w-full px-3 py-2 rounded-xl border border-slate-300" />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Program *</label>
+                <select name="program" class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white">
+                  <option value="Balistung, TK–PAUD & SD">Balistung, TK–PAUD & SD</option>
+                  <option value="SMP & SMA">SMP & SMA</option>
+                  <option value="Program Khusus TKA">Program Khusus TKA</option>
+                  <option value="Les Privat">Les Privat</option>
+                </select>
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Mode *</label>
+                <select name="mode" class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white">
+                  <option value="Reguler">Reguler</option>
+                  <option value="Privat">Privat</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Kelas (Maks. 8 Siswa) *</label>
+                <select name="classId" class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white">
+                  ${appData.classes.map(c => {
+                    const used = getClassStudents(c.id).length;
+                    return `<option value="${c.id}" ${used >= c.capacity ? 'disabled' : ''}>${escapeHTML(c.name)} (${used}/${c.capacity})</option>`;
+                  }).join('')}
+                </select>
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 mb-1">Orang Tua *</label>
+                <select name="parentId" class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white">
+                  ${appData.parents.map(p => `<option value="${p.id}">${escapeHTML(p.name)} (${escapeHTML(p.phone)})</option>`).join('')}
+                </select>
+              </div>
+            </div>
+            <div class="flex justify-end gap-2 pt-2">
+              <button type="button" onclick="closeUniversalModal()" class="px-4 py-2 rounded-xl border border-slate-300 font-bold text-xs">Batal</button>
+              <button type="submit" class="px-4 py-2 rounded-xl bg-pink-600 text-white font-bold text-xs">Simpan Siswa</button>
+            </div>
+          </form>
+        `
+      );
+    }
+
+    function submitAdminAddStudent(event) {
+      event.preventDefault();
+      const fd = new FormData(event.target);
+      const classId = fd.get('classId');
+      const cls = getClassById(classId);
+      if (!cls || getClassStudents(classId).length >= cls.capacity) {
+        showToast('Kelas sudah mencapai batas maksimal 8 siswa.', 'error');
+        return;
+      }
+      const program = fd.get('program');
+      const newId = 'stu-' + Date.now();
+      appData.students.push({
+        id: newId,
+        name: fd.get('name'),
+        grade: fd.get('grade'),
+        program,
+        mode: fd.get('mode'),
+        timeSlot: program === 'Balistung, TK–PAUD & SD' ? '16.00 WIB' : '',
+        parentId: fd.get('parentId'),
+        classId,
+        accountStatus: 'Aktif',
+        diagnosticResult: 'Menunggu jadwal assessment diagnostik awal.'
+      });
+      const fee = PROGRAM_FEES[program] ?? 150000;
+      appData.invoices.push({
+        id: 'inv-' + Date.now(),
+        studentId: newId,
+        period: 'November 2026',
+        amount: fee,
+        status: fee === 0 ? 'Lunas' : 'Belum Lunas',
+        paidDate: ''
+      });
+      saveData();
+      closeUniversalModal();
+      renderWorkspace();
+      showToast('Siswa baru berhasil ditambahkan!', 'success');
+    }
+
+    // Tutors
+    function renderTutorsSection(role) {
+      return `
+        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="font-display font-extrabold text-xl text-slate-900">Data Guru / Tutor</h2>
+              <p class="text-xs text-slate-500">Penugasan kelas, jadwal & honor tutor</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            ${appData.tutors.map(t => {
+              const classes = appData.classes.filter(c => c.tutorId === t.id);
+              return `
+                <div class="p-4 rounded-2xl border border-slate-200 bg-slate-50/70 space-y-2">
+                  <p class="font-display font-extrabold text-base text-slate-900">${escapeHTML(t.name)}</p>
+                  <p class="text-pink-700 font-semibold">${escapeHTML(t.roleLabel)}</p>
+                  <p class="text-slate-600">Jadwal: ${escapeHTML(t.scheduleSummary)}</p>
+                  <p class="text-blue-700 font-semibold">Kelas diampu: ${classes.map(c => escapeHTML(c.name)).join(', ') || '-'}</p>
+                  ${role === 'owner' ? `<p class="font-extrabold text-slate-900 pt-1 border-t border-slate-200">Honor: ${formatRupiah(t.honor)}</p>` : ''}
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    // Classes & Schedules
+    function renderClassesAndSchedulesSection() {
+      return `
+        <div class="space-y-6">
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+            <div>
+              <h2 class="font-display font-extrabold text-xl text-slate-900">Pembagian Kelas (Standar Maks. ${CLASS_CAPACITY_LIMIT} Siswa)</h2>
+              <p class="text-xs text-slate-500">Kelompok belajar reguler, privat, dan Program Khusus TKA</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              ${appData.classes.map(c => {
+                const count = getClassStudents(c.id).length;
+                const tut = getTutorById(c.tutorId);
+                return `
+                  <div class="p-4 rounded-2xl border border-blue-100 bg-blue-50/40 space-y-1.5">
+                    <div class="flex items-center justify-between">
+                      <p class="font-display font-extrabold text-base text-slate-900">${escapeHTML(c.name)}</p>
+                      <span class="px-2.5 py-0.5 rounded-full font-extrabold bg-pink-100 text-pink-700">${count} / ${c.capacity} Siswa</span>
+                    </div>
+                    <p class="text-slate-700"><strong>${escapeHTML(c.program)}</strong> · Mode: ${escapeHTML(c.mode)}</p>
+                    <p class="text-slate-600">Tutor: <strong>${escapeHTML(tut?.name || '-')}</strong> · Waktu: ${escapeHTML(c.timeSlot)}</p>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-3">
+            <h3 class="font-display font-bold text-lg text-slate-900">Jadwal Pembelajaran</h3>
+            <div class="divide-y divide-slate-100 text-xs sm:text-sm">
+              ${appData.schedules.map(sc => {
+                const cls = getClassById(sc.classId);
+                return `
+                  <div class="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <div>
+                      <span class="font-bold text-pink-700">${escapeHTML(sc.day)}</span>
+                      <span class="text-slate-800 font-semibold ml-2">· ${escapeHTML(cls?.name || '')}</span>
+                      <p class="text-xs text-slate-600">${escapeHTML(sc.topic)}</p>
+                    </div>
+                    <span class="px-3 py-1 rounded-xl bg-blue-50 text-blue-800 font-bold text-xs shrink-0">${escapeHTML(sc.timeLabel)}</span>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Attendance & PR Consultation
+    function renderAttendanceSection(role, filteredStudents = null, filteredClasses = null) {
+      const targetStudents = filteredStudents || appData.students;
+      const targetClasses = filteredClasses || appData.classes;
+      return `
+        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+          <div>
+            <h2 class="font-display font-extrabold text-xl text-slate-900">Absensi Siswa & Konsultasi PR</h2>
+            <p class="text-xs text-slate-500">Catat kehadiran siswa dan status konsultasi PR pada setiap pertemuan.</p>
+          </div>
+          <form onsubmit="submitQuickAttendance(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs bg-pink-50/60 p-4 rounded-2xl border border-pink-100">
+            <select name="studentId" class="px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold">
+              ${targetStudents.map(s => `<option value="${s.id}">${escapeHTML(s.name)} (${escapeHTML(s.grade)})</option>`).join('')}
+            </select>
+            <select name="status" class="px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold">
+              <option value="Hadir">Hadir</option>
+              <option value="Izin">Izin</option>
+              <option value="Sakit">Sakit</option>
+              <option value="Alfa">Alfa</option>
+            </select>
+            <label class="flex items-center gap-2 px-3 py-2 rounded-xl bg-white border border-slate-300 font-semibold text-slate-700 cursor-pointer">
+              <input type="checkbox" name="prConsulted" checked class="rounded" />
+              <span>Konsultasi PR</span>
+            </label>
+            <button type="submit" class="px-4 py-2 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-bold">Simpan Absensi</button>
+          </form>
+
+          <div class="divide-y divide-slate-100 text-xs">
+            ${appData.attendance
+              .filter(a => targetStudents.some(s => s.id === a.studentId))
+              .slice(-8)
+              .reverse()
+              .map(a => {
+                const st = getStudentById(a.studentId);
+                return `
+                  <div class="py-2.5 flex items-center justify-between">
+                    <div>
+                      <span class="font-bold text-slate-900">${escapeHTML(st?.name || '')}</span>
+                      <span class="text-slate-500 ml-2">${escapeHTML(a.date)} · PR: ${a.prConsulted ? 'Dikonsultasikan' : '-'}</span>
+                    </div>
+                    <span class="px-2.5 py-0.5 rounded-full font-bold ${a.status === 'Hadir' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-800'}">${escapeHTML(a.status)}</span>
+                  </div>
+                `;
+              }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function submitQuickAttendance(event) {
+      event.preventDefault();
+      const fd = new FormData(event.target);
+      const studentId = fd.get('studentId');
+      const st = getStudentById(studentId);
+      appData.attendance.push({
+        id: 'att-' + Date.now(),
+        date: '2026-11-24',
+        studentId,
+        classId: st?.classId || 'cls-1',
+        status: fd.get('status'),
+        prConsulted: fd.get('prConsulted') === 'on'
+      });
+      saveData();
+      renderWorkspace();
+      showToast('Absensi tersimpan!', 'success');
+    }
+
+    // Finance: SPP Invoices, Payment Verification, WhatsApp & Expenses
+    function renderFinanceSection() {
+      return `
+        <div class="space-y-6">
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+            <div>
+              <h2 class="font-display font-extrabold text-xl text-slate-900">Tagihan SPP Bulanan & Notifikasi WhatsApp</h2>
+              <p class="text-xs text-slate-500">Verifikasi pembayaran otomatis memperbarui status tagihan. Kirim pengingat atau kuitansi via WhatsApp.</p>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr class="border-b border-slate-200 text-slate-500">
+                    <th class="py-2 pr-3">Siswa</th>
+                    <th class="py-2 px-3">Periode</th>
+                    <th class="py-2 px-3">Nominal</th>
+                    <th class="py-2 px-3">Status</th>
+                    <th class="py-2 pl-3">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  ${appData.invoices.map(inv => {
+                    const st = getStudentById(inv.studentId);
+                    const par = getStudentParent(st);
+                    const isPaid = inv.status === 'Lunas';
+                    return `
+                      <tr>
+                        <td class="py-3 pr-3 font-bold text-slate-900">${escapeHTML(st?.name || '')}</td>
+                        <td class="py-3 px-3 text-slate-600">${escapeHTML(inv.period)}</td>
+                        <td class="py-3 px-3 font-extrabold text-slate-800">${formatRupiah(inv.amount)}</td>
+                        <td class="py-3 px-3">
+                          <span class="px-2.5 py-0.5 rounded-full font-bold ${isPaid ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}">${escapeHTML(inv.status)}</span>
+                        </td>
+                        <td class="py-3 pl-3 flex flex-wrap gap-1.5">
+                          ${!isPaid ? `<button type="button" onclick="markInvoicePaid('${inv.id}')" class="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold">Verifikasi Lunas</button>` : ''}
+                          <button type="button" onclick="openWhatsAppModal('${isPaid ? 'receipt' : 'invoice-reminder'}', '${escapeHTML(par?.phone || WA_BUSINESS_NUMBER)}', '${escapeHTML(st?.name || '')}', ${inv.amount})" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold">
+                            WA Ortu
+                          </button>
+                        </td>
+                      </tr>
+                    `;
+                  }).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+            <h3 class="font-display font-bold text-lg text-slate-900">Catat Pengeluaran Bimbel</h3>
+            <form onsubmit="submitExpenseForm(event)" class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
+              <input type="text" name="title" required placeholder="Keperluan (mis. ATK / Modul)" class="px-3 py-2 rounded-xl border border-slate-300" />
+              <select name="category" class="px-3 py-2 rounded-xl border border-slate-300 bg-white">
+                <option value="Operasional">Operasional</option>
+                <option value="Akademik">Akademik</option>
+                <option value="Utilitas">Utilitas</option>
+              </select>
+              <input type="number" name="amount" required min="1000" step="1000" placeholder="Nominal (Rp)" class="px-3 py-2 rounded-xl border border-slate-300" />
+              <button type="submit" class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold">Tambah Pengeluaran</button>
+            </form>
+            <div class="divide-y divide-slate-100 text-xs">
+              ${appData.expenses.map(e => `
+                <div class="py-2.5 flex items-center justify-between">
+                  <div>
+                    <span class="font-bold text-slate-800">${escapeHTML(e.title)}</span>
+                    <span class="text-slate-500 ml-2">· ${escapeHTML(e.category)} (${escapeHTML(e.date)})</span>
+                  </div>
+                  <span class="font-extrabold text-rose-700">${formatRupiah(e.amount)}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function markInvoicePaid(invId) {
+      const inv = appData.invoices.find(i => i.id === invId);
+      if (!inv) return;
+      inv.status = 'Lunas';
+      inv.paidDate = '2026-11-24';
+      saveData();
+      renderWorkspace();
+      showToast('Pembayaran diverifikasi & status tagihan menjadi Lunas!', 'success');
+    }
+
+    function submitExpenseForm(event) {
+      event.preventDefault();
+      const fd = new FormData(event.target);
+      appData.expenses.push({
+        id: 'exp-' + Date.now(),
+        title: fd.get('title'),
+        category: fd.get('category'),
+        amount: Number(fd.get('amount') || 0),
+        date: '2026-11-24'
+      });
+      saveData();
+      renderWorkspace();
+      showToast('Pengeluaran berhasil dicatat!', 'success');
+    }
+
+    // Academic: Grades, Notes & Materials
+    function renderAcademicSection(role, filteredStudents = null, filteredClasses = null, uploaderName = 'Admin') {
+      const targetStudents = filteredStudents || appData.students;
+      const targetClasses = filteredClasses || appData.classes;
+      return `
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+            <h3 class="font-display font-bold text-lg text-slate-900">Input Nilai & Catatan Perkembangan</h3>
+            <form onsubmit="submitGradeNote(event)" class="space-y-3 text-xs">
+              <select name="studentId" class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold">
+                ${targetStudents.map(s => `<option value="${s.id}">${escapeHTML(s.name)} (${escapeHTML(s.grade)})</option>`).join('')}
+              </select>
+              <div class="grid grid-cols-2 gap-2">
+                <input type="text" name="subject" required placeholder="Mata Pelajaran / Sesi" class="px-3 py-2 rounded-xl border border-slate-300" />
+                <input type="number" name="score" required min="0" max="100" placeholder="Nilai (0-100)" class="px-3 py-2 rounded-xl border border-slate-300" />
+              </div>
+              <textarea name="note" rows="2" required placeholder="Catatan perkembangan & hasil konsultasi PR..." class="w-full px-3 py-2 rounded-xl border border-slate-300"></textarea>
+              <button type="submit" class="w-full py-2.5 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-bold">Simpan Nilai & Catatan</button>
+            </form>
+
+            <div class="space-y-2 pt-2 border-t border-slate-100 text-xs">
+              ${appData.grades
+                .filter(g => targetStudents.some(s => s.id === g.studentId))
+                .slice(-5)
+                .reverse()
+                .map(g => {
+                  const st = getStudentById(g.studentId);
+                  return `
+                    <div class="p-3 rounded-2xl bg-slate-50">
+                      <p class="font-bold text-slate-900">${escapeHTML(st?.name || '')} · ${escapeHTML(g.subject)} (<strong>${g.score}</strong>)</p>
+                      <p class="text-slate-600 mt-0.5">${escapeHTML(g.note)}</p>
+                    </div>
+                  `;
+                }).join('')}
+            </div>
+          </div>
+
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+            <h3 class="font-display font-bold text-lg text-slate-900">Upload / Daftar Materi Pembelajaran</h3>
+            <form onsubmit="submitMaterialForm(event, '${escapeHTML(uploaderName)}')" class="space-y-3 text-xs">
+              <select name="classId" class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white font-semibold">
+                ${targetClasses.map(c => `<option value="${c.id}">${escapeHTML(c.name)}</option>`).join('')}
+              </select>
+              <input type="text" name="title" required placeholder="Judul materi / modul / latihan" class="w-full px-3 py-2 rounded-xl border border-slate-300" />
+              <input type="text" name="type" required placeholder="Jenis (mis. Modul PDF, Worksheet)" class="w-full px-3 py-2 rounded-xl border border-slate-300" />
+              <button type="submit" class="w-full py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold">Unggah Materi</button>
+            </form>
+
+            <div class="space-y-2 pt-2 border-t border-slate-100 text-xs">
+              ${appData.materials
+                .filter(m => targetClasses.some(c => c.id === m.classId))
+                .map(m => {
+                  const cls = getClassById(m.classId);
+                  return `
+                    <div class="p-3 rounded-2xl bg-blue-50/60 border border-blue-100">
+                      <p class="font-bold text-slate-900">${escapeHTML(m.title)}</p>
+                      <p class="text-slate-600">${escapeHTML(cls?.name || '')} · ${escapeHTML(m.type)} · oleh ${escapeHTML(m.uploadedBy)}</p>
+                    </div>
+                  `;
+                }).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function submitGradeNote(event) {
+      event.preventDefault();
+      const fd = new FormData(event.target);
+      appData.grades.push({
+        id: 'grd-' + Date.now(),
+        studentId: fd.get('studentId'),
+        subject: fd.get('subject'),
+        score: Number(fd.get('score') || 0),
+        note: fd.get('note')
+      });
+      saveData();
+      renderWorkspace();
+      showToast('Nilai & catatan perkembangan tersimpan!', 'success');
+    }
+
+    function submitMaterialForm(event, uploaderName) {
+      event.preventDefault();
+      const fd = new FormData(event.target);
+      appData.materials.push({
+        id: 'mat-' + Date.now(),
+        classId: fd.get('classId'),
+        title: fd.get('title'),
+        type: fd.get('type'),
+        uploadedBy: uploaderName
+      });
+      saveData();
+      renderWorkspace();
+      showToast('Materi pembelajaran ditambahkan!', 'success');
+    }
+
+    function renderStudentAcademicAndQuiz(student, myGrades, myMaterials) {
+      const q = QUIZ_BANK[uiState.quizIndex % QUIZ_BANK.length];
+      return `
+        <div class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-xs space-y-2.5 text-xs">
+              <h3 class="font-display font-bold text-base text-slate-900">Materi Pembelajaran Kelas</h3>
+              ${myMaterials.length ? myMaterials.map(m => `
+                <div class="p-3 rounded-2xl bg-blue-50/70 border border-blue-100">
+                  <p class="font-bold text-slate-900">${escapeHTML(m.title)}</p>
+                  <p class="text-slate-600">${escapeHTML(m.type)} · ${escapeHTML(m.uploadedBy)}</p>
+                </div>
+              `).join('') : '<p class="text-slate-500">Belum ada materi untuk kelas ini.</p>'}
+            </div>
+
+            <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-xs space-y-2.5 text-xs">
+              <h3 class="font-display font-bold text-base text-slate-900">Nilai & Catatan Guru</h3>
+              ${myGrades.length ? myGrades.map(g => `
+                <div class="p-3 rounded-2xl bg-pink-50/70 border border-pink-100">
+                  <p class="font-bold text-slate-900">${escapeHTML(g.subject)} — Nilai: <strong>${g.score}</strong></p>
+                  <p class="text-slate-600 mt-0.5">${escapeHTML(g.note)}</p>
+                </div>
+              `).join('') : '<p class="text-slate-500">Belum ada catatan nilai.</p>'}
+            </div>
+          </div>
+
+          <!-- Latihan Soal Interaktif -->
+          <div class="bg-white rounded-3xl p-6 border border-pink-200 shadow-xs space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="font-display font-extrabold text-lg text-slate-900">Latihan Soal Interaktif</h3>
+              <span class="text-xs font-bold text-pink-600">Soal ${uiState.quizIndex + 1} / ${QUIZ_BANK.length} · Skor: ${uiState.quizScore}</span>
+            </div>
+
+            ${!uiState.quizFinished ? `
+              <p class="text-sm font-bold text-slate-800">${escapeHTML(q.q)}</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
+                ${q.options.map((opt, idx) => {
+                  const picked = uiState.quizSelected === idx;
+                  return `
+                    <button type="button" onclick="answerQuizOption(${idx})" class="p-3 rounded-2xl border text-left font-bold transition-all ${
+                      picked ? 'border-pink-600 bg-pink-50 text-pink-800' : 'border-slate-200 hover:border-blue-400 bg-white text-slate-800'
+                    }">
+                      ${escapeHTML(opt)}
+                    </button>
+                  `;
+                }).join('')}
+              </div>
+              ${uiState.quizAnswered ? `
+                <div class="p-3.5 rounded-2xl bg-blue-50 border border-blue-200 text-xs text-blue-950 space-y-2">
+                  <p class="font-bold">${uiState.quizSelected === q.answer ? 'Jawaban Tepat!' : 'Pembahasan:'}</p>
+                  <p>${escapeHTML(q.explanation)}</p>
+                  <button type="button" onclick="nextQuizQuestion()" class="px-4 py-1.5 rounded-xl bg-blue-600 text-white font-bold">Lanjut</button>
+                </div>
+              ` : ''}
+            ` : `
+              <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs space-y-2">
+                <p class="font-display font-extrabold text-base text-emerald-900">Latihan Selesai! Skor Anda: ${uiState.quizScore} / ${QUIZ_BANK.length}</p>
+                <button type="button" onclick="resetQuiz()" class="px-4 py-2 rounded-xl bg-emerald-600 text-white font-bold">Ulangi Latihan</button>
+              </div>
+            `}
+          </div>
+        </div>
+      `;
+    }
+
+    function answerQuizOption(idx) {
+      if (uiState.quizAnswered) return;
+      const q = QUIZ_BANK[uiState.quizIndex % QUIZ_BANK.length];
+      uiState.quizSelected = idx;
+      uiState.quizAnswered = true;
+      if (idx === q.answer) uiState.quizScore += 1;
+      renderWorkspace();
+    }
+
+    function nextQuizQuestion() {
+      uiState.quizAnswered = false;
+      uiState.quizSelected = null;
+      if (uiState.quizIndex + 1 >= QUIZ_BANK.length) {
+        uiState.quizFinished = true;
+      } else {
+        uiState.quizIndex += 1;
+      }
+      renderWorkspace();
+    }
+
+    function resetQuiz() {
+      uiState.quizIndex = 0;
+      uiState.quizScore = 0;
+      uiState.quizAnswered = false;
+      uiState.quizSelected = null;
+      uiState.quizFinished = false;
+      renderWorkspace();
+    }
+
+    // Announcements
+    function renderAnnouncementsSection() {
+      return `
+        <div class="space-y-6">
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
+            <h2 class="font-display font-extrabold text-xl text-slate-900">Buat Pengumuman Baru</h2>
+            <form onsubmit="submitAnnouncementForm(event)" class="space-y-3 text-xs">
+              <input type="text" name="title" required placeholder="Judul pengumuman" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300" />
+              <textarea name="body" rows="2" required placeholder="Isi pengumuman untuk siswa dan orang tua..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300"></textarea>
+              <button type="submit" class="px-4 py-2.5 rounded-xl bg-pink-600 hover:bg-pink-700 text-white font-bold">Publikasikan Pengumuman</button>
+            </form>
+          </div>
+          ${renderAnnouncementsListOnly()}
+        </div>
+      `;
+    }
+
+    function renderAnnouncementsListOnly() {
+      return `
+        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-3">
+          <h3 class="font-display font-bold text-lg text-slate-900">Papan Pengumuman</h3>
+          <div class="space-y-2.5 text-xs">
+            ${appData.announcements.slice().reverse().map(a => `
+              <div class="p-3.5 rounded-2xl bg-pink-50/60 border border-pink-100">
+                <p class="font-bold text-slate-900">${escapeHTML(a.title)}</p>
+                <p class="text-slate-600 mt-1">${escapeHTML(a.body)}</p>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function submitAnnouncementForm(event) {
+      event.preventDefault();
+      const fd = new FormData(event.target);
+      appData.announcements.push({
+        id: 'ann-' + Date.now(),
+        title: fd.get('title'),
+        body: fd.get('body'),
+        target: 'Semua Pengguna'
+      });
+      saveData();
+      renderWorkspace();
+      showToast('Pengumuman dipublikasikan!', 'success');
+    }
+
+    // Printable Monthly Report
+    function renderReportsSection() {
+      const paidSpp = appData.invoices.filter(i => i.status === 'Lunas').reduce((s, i) => s + Number(i.amount || 0), 0);
+      const unpaidSpp = appData.invoices.filter(i => i.status !== 'Lunas').reduce((s, i) => s + Number(i.amount || 0), 0);
+      const totalExp = appData.expenses.reduce((s, e) => s + Number(e.amount || 0), 0);
+
+      return `
+        <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-6 print-break-avoid">
+          <div class="flex flex-wrap items-start justify-between gap-4 border-b border-slate-200 pb-4">
+            <div>
+              <p class="text-xs font-extrabold text-pink-600 uppercase">Laporan Bulanan Resmi</p>
+              <h2 class="font-display font-extrabold text-2xl text-slate-900">Solutiva Z — Rekap Operasional & Keuangan</h2>
+              <p class="text-xs text-slate-500">Pasar Tapan, Basa Ampek Balai Tapan · Solusi belajar jadi lebih menyenangkan</p>
+            </div>
+            <button type="button" onclick="window.print()" class="no-print px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center gap-1.5">
+              <i data-lucide="printer" class="w-4 h-4"></i>
+              <span>Cetak Laporan</span>
+            </button>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <p class="text-slate-500">Total Siswa Aktif</p>
+              <p class="font-display font-extrabold text-xl text-slate-900 mt-1">${appData.students.length}</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <p class="text-slate-500">SPP Terkumpul</p>
+              <p class="font-display font-extrabold text-base text-emerald-700 mt-1">${formatRupiah(paidSpp)}</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <p class="text-slate-500">Tunggakan SPP</p>
+              <p class="font-display font-extrabold text-base text-rose-700 mt-1">${formatRupiah(unpaidSpp)}</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <p class="text-slate-500">Total Pengeluaran</p>
+              <p class="font-display font-extrabold text-base text-slate-900 mt-1">${formatRupiah(totalExp)}</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Public Registration Handlers
+    function selectProgramForRegistration(programName) {
+      const sel = document.getElementById('reg-program-select');
+      if (sel) {
+        sel.value = programName;
+        toggleRegTimeField();
+      }
+      const target = document.getElementById('pendaftaran-publik');
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleRegTimeField() {
+      const sel = document.getElementById('reg-program-select');
+      const timeWrap = document.getElementById('reg-time-slot-wrap');
+      const feePreview = document.getElementById('reg-fee-preview');
+      if (!sel || !timeWrap) return;
+
+      const prog = sel.value;
+      const isBalistungSd = prog === 'Balistung, TK–PAUD & SD';
+      timeWrap.classList.toggle('hidden', !isBalistungSd);
+
+      if (feePreview) {
+        if (prog === 'Balistung, TK–PAUD & SD') feePreview.textContent = 'SPP: Rp150.000/bln (Senin–Jumat)';
+        else if (prog === 'SMP & SMA') feePreview.textContent = 'SPP: Rp250.000/bln (12x pertemuan)';
+        else feePreview.textContent = `Program: ${prog}`;
+      }
+    }
+
+    function handlePublicRegistration(event) {
+      event.preventDefault();
+      const fd = new FormData(event.target);
+      const program = fd.get('program');
+      appData.registrations.push({
+        id: 'reg-' + Date.now(),
+        studentName: fd.get('studentName'),
+        grade: fd.get('grade'),
+        program,
+        mode: fd.get('mode'),
+        timeSlot: program === 'Balistung, TK–PAUD & SD' ? fd.get('timeSlot') : '',
+        parentName: fd.get('parentName'),
+        parentPhone: fd.get('parentPhone'),
+        notes: fd.get('notes') || '',
+        status: 'Menunggu Verifikasi'
+      });
+      saveData();
+      event.target.reset();
+      toggleRegTimeField();
+      showToast('Pendaftaran terkirim! Menunggu verifikasi Admin Solutiva Z.', 'success');
+    }
+
+    // WhatsApp Modal
+    function openWhatsAppModal(mode, phone = WA_BUSINESS_NUMBER, labelOrStudent = '', amount = 0) {
+      const cleanPhone = String(phone || WA_BUSINESS_NUMBER).replace(/\D/g, '');
+      const waIntl = cleanPhone.startsWith('0') ? '62' + cleanPhone.slice(1) : cleanPhone;
+
+      let msg = `Halo Admin *Solutiva Z* (Pasar Tapan), saya ingin bertanya mengenai program bimbel.`;
+      if (mode === 'invoice-reminder') {
+        msg = `Assalamu'alaikum Ayah/Bunda, informasi tagihan bulanan *Solutiva Z* untuk ananda *${labelOrStudent}* sebesar *${formatRupiah(amount)}*. Mohon konfirmasinya. Terima kasih.`;
+      } else if (mode === 'receipt') {
+        msg = `Assalamu'alaikum Ayah/Bunda, terima kasih. Pembayaran bulanan *Solutiva Z* untuk ananda *${labelOrStudent}* sebesar *${formatRupiah(amount)}* telah berstatus *LUNAS*.`;
+      } else if (mode === 'parent-help') {
+        msg = `Halo Admin *Solutiva Z*, saya *${labelOrStudent}* (Orang Tua Siswa) ingin menghubungi pihak bimbel.`;
+      }
+
+      document.getElementById('wa-phone-input').value = cleanPhone || WA_BUSINESS_NUMBER;
+      document.getElementById('wa-message-textarea').value = msg;
+      document.getElementById('wa-external-link').href = `https://wa.me/${waIntl}?text=${encodeURIComponent(msg)}`;
+      document.getElementById('wa-modal').classList.remove('hidden');
+      refreshIcons();
+    }
+
+    function closeWhatsAppModal() {
+      document.getElementById('wa-modal').classList.add('hidden');
+    }
+
+    function copyWhatsAppText() {
+      const ta = document.getElementById('wa-message-textarea');
+      if (!ta) return;
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showToast('Pesan WhatsApp disalin!', 'success');
+      } catch (e) {
+        showToast('Tidak dapat menyalin otomatis.', 'error');
+      }
+    }
+
+    function simulateWhatsAppApiSend() {
+      const p = document.getElementById('wa-phone-input').value;
+      showToast(`Simulasi API WhatsApp terkirim ke ${p}!`, 'success');
+      closeWhatsAppModal();
+    }
+
+    // Universal Modal
+    function openUniversalModal(title, subtitle, bodyHtml) {
+      document.getElementById('universal-modal-title').textContent = title;
+      document.getElementById('universal-modal-subtitle').textContent = subtitle;
+      document.getElementById('universal-modal-body').innerHTML = bodyHtml;
+      document.getElementById('universal-modal').classList.remove('hidden');
+      refreshIcons();
+    }
+
+    function closeUniversalModal() {
+      document.getElementById('universal-modal').classList.add('hidden');
+    }
+
+    // Role Login Modal
+    function openRoleLoginModal(defaultRole = 'parent') {
+      const sel = document.getElementById('login-role-select');
+      if (sel) {
+        sel.value = ['owner', 'admin', 'tutor', 'student', 'parent'].includes(defaultRole) ? defaultRole : 'parent';
+      }
+      syncLoginAccountOptions();
+      document.getElementById('role-login-modal').classList.remove('hidden');
+      refreshIcons();
+    }
+
+    function closeRoleLoginModal() {
+      document.getElementById('role-login-modal').classList.add('hidden');
+    }
+
+    function syncLoginAccountOptions() {
+      const role = document.getElementById('login-role-select').value;
+      const wrap = document.getElementById('login-account-picker-wrap');
+      const label = document.getElementById('login-account-label');
+      const accSel = document.getElementById('login-account-select');
+      const idInput = document.getElementById('login-identifier-input');
+
+      if (role === 'owner' || role === 'admin') {
+        wrap.classList.add('hidden');
+        idInput.value = role === 'owner' ? 'owner.solutivaz' : 'admin.solutivaz';
+        return;
+      }
+
+      wrap.classList.remove('hidden');
+      if (role === 'tutor') {
+        label.textContent = 'Pilih Akun Guru / Tutor';
+        accSel.innerHTML = appData.tutors.map(t => `<option value="${t.id}" ${t.id === uiState.activeTutorId ? 'selected' : ''}>${escapeHTML(t.name)}</option>`).join('');
+        idInput.value = WA_BUSINESS_NUMBER;
+      } else if (role === 'student') {
+        label.textContent = 'Pilih Akun Siswa';
+        accSel.innerHTML = appData.students.map(s => `<option value="${s.id}" ${s.id === uiState.activeStudentId ? 'selected' : ''}>${escapeHTML(s.name)} (${escapeHTML(s.grade)})</option>`).join('');
+        const st = getStudentById(accSel.value) || appData.students[0];
+        const par = getStudentParent(st);
+        idInput.value = par?.phone || st?.id || '';
+      } else if (role === 'parent') {
+        label.textContent = 'Pilih Akun Orang Tua';
+        accSel.innerHTML = appData.parents.map(p => {
+          const cnt = appData.students.filter(s => s.parentId === p.id).length;
+          return `<option value="${p.id}" ${p.id === uiState.activeParentId ? 'selected' : ''}>${escapeHTML(p.name)} (${cnt} anak)</option>`;
+        }).join('');
+        const par = getParentById(accSel.value) || appData.parents[0];
+        idInput.value = par?.phone || '';
+      }
+    }
+
+    function submitRoleLoginForm(event) {
+      event.preventDefault();
+      const role = document.getElementById('login-role-select').value;
+      const accSel = document.getElementById('login-account-select');
+      if (role === 'tutor' && accSel.value) uiState.activeTutorId = accSel.value;
+      if (role === 'student' && accSel.value) uiState.activeStudentId = accSel.value;
+      if (role === 'parent' && accSel.value) uiState.activeParentId = accSel.value;
+      closeRoleLoginModal();
+      switchAppRole(role);
+      showToast(`Masuk sebagai ${ROLE_META[role]?.badge || role}`, 'success');
+    }
+
+    // Lightbox & Confirm
+    function openGalleryLightbox(index) {
+      const item = GALLERY_ITEMS[index];
+      if (!item) return;
+      document.getElementById('lightbox-title').textContent = item.title;
+      document.getElementById('lightbox-desc').textContent = item.desc;
+      document.getElementById('lightbox-meta').textContent = item.meta;
+      document.getElementById('gallery-lightbox').classList.remove('hidden');
+      refreshIcons();
+    }
+
+    function closeGalleryLightbox() {
+      document.getElementById('gallery-lightbox').classList.add('hidden');
+    }
+
+    function openConfirmModal(mode) {
+      const titleEl = document.getElementById('confirm-title');
+      const descEl = document.getElementById('confirm-desc');
+      const btn = document.getElementById('confirm-action-btn');
+
+      if (mode === 'reset') {
+        titleEl.textContent = 'Reset Data Demo Solutiva Z?';
+        descEl.textContent = 'Semua perubahan data simulasi di browser akan dikembalikan ke data awal.';
+        uiState.confirmCallback = () => {
+          appData = structuredClone(DEFAULT_DATA);
+          saveData();
+          switchAppRole('public');
+          showToast('Data demo berhasil direset.', 'info');
+        };
+      }
+
+      btn.onclick = () => {
+        if (typeof uiState.confirmCallback === 'function') uiState.confirmCallback();
+        closeConfirmModal();
+      };
+      document.getElementById('confirm-modal').classList.remove('hidden');
+    }
+
+    function closeConfirmModal() {
+      document.getElementById('confirm-modal').classList.add('hidden');
+      uiState.confirmCallback = null;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        switchAppRole('public');
+        toggleRegTimeField();
+        refreshIcons();
+      } catch (err) {
+        showToast('Terjadi kendala saat memuat aplikasi.', 'error');
+      }
+    });
+  </script>
+</body>
+</html>
